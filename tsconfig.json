@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "sourceMap": true,
+        /* Strict Type-Checking Options */
+        "strict": true /* Enable all strict type-checking options. */,
+        "noImplicitAny": false /* Raise error on expressions and declarations with an implied 'any' type. */,
+        "strictNullChecks": false /* Enable strict null checks. */,
+        "strictPropertyInitialization": false /* Enable strict checking of property initialization in classes. */,
+        "noImplicitThis": true /* Raise error on 'this' expressions with an implied 'any' type. */,
+        "alwaysStrict": true /* Parse in strict mode and emit "use strict" for each source file. */,
+        "noUnusedLocals": false /* Report errors on unused locals. */,
+        "noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
+        "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+        "allowSyntheticDefaultImports": false,  /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "allowJs": true,                       /* Allow javascript files to be compiled. */
+        "skipLibCheck": true,
+        "isolatedModules": true              /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
