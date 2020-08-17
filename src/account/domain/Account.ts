@@ -54,7 +54,7 @@ export class Account {
         this._status = AccountStatus.CLOSED;
     }
 
-    private get balance() {
+    private get balance(): number {
         const totalDebits = this._debits
             .map((debit) => debit.amount.value)
             .reduce((prev, current) => prev + current, 0);
@@ -63,7 +63,7 @@ export class Account {
             .map((credit) => credit.amount.value)
             .reduce((prev, current) => prev + current, 0);
 
-        return totalDebits - totalCredits
+        return totalDebits - totalCredits;
     }
 
     get id(): AccountId {

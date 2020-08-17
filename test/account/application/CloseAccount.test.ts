@@ -24,10 +24,8 @@ describe('CloseAccount should', () => {
         await then_the_accounts_has_this_data(account.id, account.customerId);
     });
 
-    test('validate if account the balance is zero', async () => {
+    test('not close the account if the balance is not zero', async () => {
         const account = AccountMother.withThisDebit(100);
-        let exception: any;
-
         given_a_use_case();
         await and_a_account_with_this_data(account);
 
