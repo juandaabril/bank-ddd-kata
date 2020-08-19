@@ -50,7 +50,6 @@ describe('DepositFundsIntoAccount should', () => {
 
     async function and_a_account_with_this_data(account: Account) {
         await accountRepository.store(account);
-
     }
 
     async function when_a_deposit_is_make(accountId: AccountId, customerId: CustomerId, description: Description, amount: Amount) {

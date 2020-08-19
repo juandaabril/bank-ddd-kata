@@ -14,7 +14,7 @@ export class RegisterANewAccount {
 
     async execute(accountId: AccountId, customerId: CustomerId): Promise<void> {
 
-        const openingDate = AccountOpeningDate.fromSimpleDate(
+        const openingDate = AccountOpeningDate.fromDate(
             await this.dateService.today()
         );
 

@@ -16,7 +16,6 @@ export class Account {
     private _debits: Debit[];
     private _credits: Credit[];
 
-
     constructor(id: AccountId, customerId: CustomerId, status: AccountStatus, openingDate: AccountOpeningDate, debits: Debit[], credits: Credit[]) {
         this._id = id;
         this._customerId = customerId;
@@ -42,6 +41,10 @@ export class Account {
     }
 
     withdraw(description: Description, amount: Amount, transactionDate: TransactionDate) {
+        if (this.balance - amount.value < 0) {
+            throw new WithdrawWithInsufficientBalance();
+        }
+
         const credit = Credit.create(description, amount, transactionDate);
         this._credits.push(credit);
     }
@@ -91,9 +94,19 @@ export class Account {
     }
 }
 
-export class AccountCannotBeClosedWithExistingFunds extends Error {
+
+
+export class BasicError extends Error {
     constructor(m?: string) {
         super(m);
-        Object.setPrototypeOf(this, AccountCannotBeClosedWithExistingFunds.prototype);
+        Object.setPrototypeOf(this, BasicError.prototype);
     }
+}
+
+export class AccountCannotBeClosedWithExistingFunds extends BasicError {
+
+}
+
+export class WithdrawWithInsufficientBalance extends BasicError {
+
 }

@@ -4,7 +4,11 @@ import {DateValueObject} from "../../../src/shared/domain/DateValueObject";
 import {DateValueObjectMother} from "../../shared/domain/DateValueObjectMother";
 import {AccountMother} from "../domain/AccountMother";
 import {AccountRepository} from "../../../src/account/domain/AccountRepository";
-import {Account} from "../../../src/account/domain/Account";
+import {
+    Account,
+    AccountCannotBeClosedWithExistingFunds,
+    WithdrawWithInsufficientBalance
+} from "../../../src/account/domain/Account";
 import {DepositFundsIntoAccount} from "../../../src/account/application/DepositFundsIntoAccount";
 import {AccountId} from "../../../src/account/domain/AccountId";
 import {CustomerId} from "../../../src/customer/domain/CustomerId";
@@ -19,6 +23,7 @@ describe('WithdrawFundsFromAccount should', () => {
     let accountRepository: AccountRepository;
     let dateService: DateService;
     let withdrawFundsFromAccount: WithdrawFundsFromAccount;
+    let executor: () => void;
 
     test('add a credit into the account', async () => {
         const account = AccountMother.withThisDebit(1000);
@@ -34,6 +39,22 @@ describe('WithdrawFundsFromAccount should', () => {
 
         await then_the_accounts_has_this_data(account.id, account.customerId, description, amount, transactionDate);
     });
+
+    test('do not allow the Customer to Withdraw more than the existing funds', async () => {
+        const account = AccountMother.withThisDebit(1000);
+        const transactionDate = DateValueObjectMother.random();
+        const description = DescriptionMother.random();
+        const amount = new Amount(1001);
+
+        given_a_use_case();
+        and_a_date_with_this_value(transactionDate);
+        await and_a_account_with_this_data(account);
+
+        await when_a_withdraw_is_made_and_throw_error(account.id, account.customerId, description, amount);
+
+        await then_the_action_throw_this_error(WithdrawWithInsufficientBalance);
+    });
+
 
     function given_a_use_case() {
         accountRepository = new InMemoryAccountRepository();
@@ -57,6 +78,12 @@ describe('WithdrawFundsFromAccount should', () => {
         await withdrawFundsFromAccount.execute(accountId, customerId, description, amount);
     }
 
+
+    async function when_a_withdraw_is_made_and_throw_error(accountId: AccountId, customerId: CustomerId, description: Description, amount: Amount) {
+        executor = async () => {
+            await withdrawFundsFromAccount.execute(accountId, customerId, description, amount);
+        };
+    }
     async function then_the_accounts_has_this_data(accountId: AccountId, customerId: CustomerId, description: Description, amount: Amount, transactionDate: DateValueObject) {
         const account = await accountRepository.findById(accountId);
 
@@ -67,5 +94,9 @@ describe('WithdrawFundsFromAccount should', () => {
         expect(account.credits[0].description).toStrictEqual(description);
         expect(account.credits[0].amount).toStrictEqual(amount);
         expect(account.credits[0].transactionDate.value).toBe(transactionDate.value);
+    }
+
+    async function then_the_action_throw_this_error(error: any) {
+        await expect(executor()).rejects.toThrow(error);
     }
 });

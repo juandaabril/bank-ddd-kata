@@ -30,7 +30,7 @@ describe('RegisterANewAccount should', () => {
     });
 
     function given_a_use_case() {
-        accountRepository = new InMemoryAccountRepository()
+        accountRepository = new InMemoryAccountRepository();
         dateService = mock<DateService>();
 
         registerANewAccount = new RegisterANewAccount(
