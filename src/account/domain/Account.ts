@@ -94,19 +94,16 @@ export class Account {
     }
 }
 
-
-
-export class BasicError extends Error {
+export class AccountCannotBeClosedWithExistingFunds extends Error {
     constructor(m?: string) {
         super(m);
-        Object.setPrototypeOf(this, BasicError.prototype);
+        Object.setPrototypeOf(this, AccountCannotBeClosedWithExistingFunds.prototype);
     }
 }
 
-export class AccountCannotBeClosedWithExistingFunds extends BasicError {
-
-}
-
-export class WithdrawWithInsufficientBalance extends BasicError {
-
+export class WithdrawWithInsufficientBalance extends Error {
+    constructor(m?: string) {
+        super(m);
+        Object.setPrototypeOf(this, WithdrawWithInsufficientBalance.prototype);
+    }
 }
