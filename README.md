@@ -1,53 +1,75 @@
-# .NET Standard project with DDD patterns covered with Unit Tests
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+</p>
 
-Design the **Virtual Wallet** using Aggregate Roots, Entities and Value Objects and cover the uses cases with Unit Tests. At the Clean Architecture Manga you could learn the [DDD patterns](https://github.com/ivanpaulovich/clean-architecture-manga/wiki/Domain-Driven-Design-Patterns) and TDD at [TheThreeRulesOfTdd](http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd).
+[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
+[travis-url]: https://travis-ci.org/nestjs/nest
+[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
+[linux-url]: https://travis-ci.org/nestjs/nest
+  
+  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
+<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
+<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
+  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Compiling from source
+## Description
 
-Clone this repository to your machine, compile and test it:
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-```sh
-git clone https://github.com/ivanpaulovich/ddd-tdd-rich-domain.git
-cd ddd-tdd-rich-domain
-dotnet test
+## Installation
+
+```bash
+$ npm install
 ```
 
-## Use cases
+## Running the app
 
-This project was designed do cover the following use cases and requirements:
+```bash
+# development
+$ npm run start
 
-1. A Customer could register a new Checking Account using its personal details.
-1. Allow a customer to deposit funds into an existing account.
-1. Allow the customer to withdraw funds from an existing account.
-1. Allow the customer to close a Checking Account only if the balance is zero.
-1. Do not allow the Customer to Withdraw more than the existing funds.
-1. Allow to get the account details.
-1. Allow to get the customer details.
+# watch mode
+$ npm run start:dev
 
-# The Domain Model
+# production mode
+$ npm run start:prod
+```
 
-![Domain Model](https://raw.githubusercontent.com/ivanpaulovich/ddd-tdd-rich-domain/kata-initial/docs/ddd-tdd-rich-domain-model.png)
+## Test
 
-##  Tech stuff
+```bash
+# unit tests
+$ npm run test
 
-* .NET Core 3.1
-* xUnit
+# e2e tests
+$ npm run test:e2e
 
-##  Kata
+# test coverage
+$ npm run test:cov
+```
 
-Build a Rich Domain from tests using DDD Building Blocks like Aggregate Roots, Entities and Value Objects with the help of `kata-initial` folder files.
+## Support
 
-###  The expected Model has
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-* Customer and Checking Account Aggregate Roots.
-* Credit and Debit Entities.
-* Amount, Name and SSN Value Objects.
+## Stay in touch
 
-###  Create a Test Class for the Register use case.
-###  Then begin with the domain implementation.
-###  Refactor the code.
-###  Add more tests and continue with the implementation.
-###  Refactor and Repeat.
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
+## License
 
-https://github.com/ivanpaulovich/ddd-tdd-rich-domain-model-dojo-kata/blob/kata-initial/README.md
+  Nest is [MIT licensed](LICENSE).
