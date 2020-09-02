@@ -7,6 +7,7 @@ import {Debit} from "./Debit";
 import {Description} from "./Description";
 import {Credit} from "./Credit";
 import {AccountStatus} from "./AccountStatus";
+import {RuntimeError} from "../../shared/domain/RuntimeError";
 
 export class Account {
     private _id: AccountId;
@@ -95,16 +96,6 @@ export class Account {
     }
 }
 
-export class AccountCannotBeClosedWithExistingFunds extends Error {
-    constructor(m?: string) {
-        super(m);
-        Object.setPrototypeOf(this, AccountCannotBeClosedWithExistingFunds.prototype);
-    }
-}
+export class AccountCannotBeClosedWithExistingFunds extends RuntimeError {}
 
-export class WithdrawWithInsufficientBalance extends Error {
-    constructor(m?: string) {
-        super(m);
-        Object.setPrototypeOf(this, WithdrawWithInsufficientBalance.prototype);
-    }
-}
+export class WithdrawWithInsufficientBalance extends RuntimeError {}

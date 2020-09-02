@@ -9,23 +9,46 @@ import {AccountRepository, AccountRepositoryName} from "../domain/AccountReposit
 import {DateService} from "../../shared/domain/DateService";
 import {FirebaseAccountRepository} from "./repository/FirebaseAccountRepository";
 
+//repositories
+const accountRepository = {provide: 'AccountRepository', useClass: FirebaseAccountRepository};
 
-const registerANewAccountFactory = {
+
+//use cases
+const registerANewAccount = {
     provide: RegisterANewAccount,
     useFactory: (accountRepository: AccountRepository, dateService: DateService) => {
         return new RegisterANewAccount(accountRepository, dateService);
     },
-    inject: ['AccountRepository' , 'DateService'],
+    inject: ['AccountRepository', 'DateService'],
 };
+
+const depositFundsIntoAccount = {
+    provide: DepositFundsIntoAccount,
+    useFactory: (accountRepository: AccountRepository, dateService: DateService) => new DepositFundsIntoAccount(accountRepository, dateService),
+    inject: ['AccountRepository', 'DateService'],
+};
+
+const closeAccount = {
+    provide: CloseAccount,
+    useFactory: (accountRepository: AccountRepository) => new CloseAccount(accountRepository),
+    inject: ['AccountRepository']
+};
+
 
 @Global()
 @Module({
     providers: [
-        {provide: 'AccountRepository', useClass: FirebaseAccountRepository},
-        registerANewAccountFactory
+        accountRepository,
+        registerANewAccount,
+        depositFundsIntoAccount,
+        closeAccount
     ],
     exports: [
-        registerANewAccountFactory
+        accountRepository,
+        registerANewAccount,
+        depositFundsIntoAccount,
+        closeAccount
     ],
 })
-export class AccountModule {}
+export class AccountModule {
+}

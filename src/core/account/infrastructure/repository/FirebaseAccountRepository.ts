@@ -8,22 +8,23 @@ import {AccountMapper} from "./AccountMapper";
 @Injectable()
 export class FirebaseAccountRepository implements AccountRepository {
 
-    constructor(private firebaseClient: FirebaseClient) {}
+    constructor(private firebaseClient: FirebaseClient) {
+    }
 
     async findById(accountId: AccountId): Promise<Account | null> {
+        console.log(accountId);
         const result = await this.firestore.collection('accounts').doc(accountId.value).get();
-        if (!result) {
-            throw new Error('not found');
+        console.log('result', result.exists);
+        if (!result.exists) {
+            return null;
         }
 
-        return Promise.resolve(null);
+        return AccountMapper.fromFirebase(result);
     }
 
 
     async store(account: Account): Promise<void> {
         const raw = AccountMapper.toFirebase(account);
-
-        console.log(raw);
 
         await this.firestore.collection('accounts')
             .doc(account.id.value)
@@ -33,7 +34,7 @@ export class FirebaseAccountRepository implements AccountRepository {
     }
 
 
-    private get firestore():firebase.firestore.Firestore {
+    private get firestore(): firebase.firestore.Firestore {
         return this.firebaseClient.firestore
     }
 }
