@@ -18,6 +18,7 @@ export class Account {
 
     constructor(id: AccountId, customerId: CustomerId, status: AccountStatus, openingDate: AccountOpeningDate, debits: Debit[], credits: Credit[]) {
         this._id = id;
+        this._status = status;
         this._customerId = customerId;
         this._openingDate = openingDate;
         this._debits = debits;

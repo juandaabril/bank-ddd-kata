@@ -1,8 +1,18 @@
-import { NestFactory } from '@nestjs/core';
+import {Module} from "@nestjs/common";
+import {ConfigModule} from "@nestjs/config";
+import {SharedModule} from "./core/shared/infrastructure/SharedModule";
+import {AccountModule} from "./core/account/infrastructure/AccountModule";
 import {ApiModule} from "./api/ApiModule";
 
-async function bootstrap() {
-  const app = await NestFactory.create(ApiModule);
-  await app.listen(3000);
+@Module({
+    imports: [
+        ConfigModule.forRoot({
+            isGlobal: true,
+        }),
+        SharedModule,
+        AccountModule,
+        ApiModule
+    ]
+})
+export class MainModule {
 }
-bootstrap();

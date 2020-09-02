@@ -3,10 +3,11 @@ import {CloseAccount} from "../application/CloseAccount";
 import {DepositFundsIntoAccount} from "../application/DepositFundsIntoAccount";
 import {RegisterANewAccount} from "../application/RegisterANewAccount";
 import {WithdrawFundsFromAccount} from "../application/WithdrawFundsFromAccount";
-import {InMemoryAccountRepository} from "./InMemoryAccountRepository";
+import {InMemoryAccountRepository} from "./repository/InMemoryAccountRepository";
 import {LocalDateService} from "../../shared/infrastructure/LocalDateService";
 import {AccountRepository, AccountRepositoryName} from "../domain/AccountRepository";
 import {DateService} from "../../shared/domain/DateService";
+import {FirebaseAccountRepository} from "./repository/FirebaseAccountRepository";
 
 
 const registerANewAccountFactory = {
@@ -17,12 +18,10 @@ const registerANewAccountFactory = {
     inject: ['AccountRepository' , 'DateService'],
 };
 
-
 @Global()
 @Module({
     providers: [
-        {provide: 'DateService', useClass: LocalDateService},
-        {provide: 'AccountRepository', useClass: InMemoryAccountRepository},
+        {provide: 'AccountRepository', useClass: FirebaseAccountRepository},
         registerANewAccountFactory
     ],
     exports: [
