@@ -18,7 +18,7 @@ describe('AccountClosePutController (e2e)', () => {
     test('/account/close/', () => {
         return request(app.getHttpServer())
             .put('/account/close')
-            .send({accountId: '1', customerId: '2'})
+            .send({accountId: '2', customerId: '2'})
             .expect(20);
     });
 });

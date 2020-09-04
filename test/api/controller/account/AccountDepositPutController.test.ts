@@ -3,7 +3,7 @@ import {INestApplication} from '@nestjs/common';
 import * as request from 'supertest';
 import {MainModule} from "../../../../src/MainModule";
 
-describe('AccountPostController (e2e)', () => {
+describe('AccountDepositPutController (e2e)', () => {
     let app: INestApplication;
 
     beforeEach(async () => {
@@ -15,10 +15,15 @@ describe('AccountPostController (e2e)', () => {
         await app.init();
     });
 
-    test('/account', () => {
+    test('/account/deposit', () => {
         return request(app.getHttpServer())
-            .post('/account')
-            .send({accountId: '5', customerId: '3'})
-            .expect(201);
+            .put('/account/deposit')
+            .send({
+                "accountId": "5",
+                "customerId": "3",
+                "description": "test",
+                "amount": 200
+            })
+            .expect(200);
     });
 });

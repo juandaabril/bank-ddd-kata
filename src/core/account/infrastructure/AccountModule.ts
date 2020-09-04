@@ -12,7 +12,6 @@ import {FirebaseAccountRepository} from "./repository/FirebaseAccountRepository"
 //repositories
 const accountRepository = {provide: 'AccountRepository', useClass: FirebaseAccountRepository};
 
-
 //use cases
 const registerANewAccount = {
     provide: RegisterANewAccount,
@@ -33,7 +32,6 @@ const closeAccount = {
     useFactory: (accountRepository: AccountRepository) => new CloseAccount(accountRepository),
     inject: ['AccountRepository']
 };
-
 
 @Global()
 @Module({

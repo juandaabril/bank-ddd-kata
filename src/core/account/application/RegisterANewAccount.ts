@@ -13,7 +13,6 @@ export class RegisterANewAccount {
     ) {}
 
     async execute(accountId: AccountId, customerId: CustomerId): Promise<void> {
-
         const openingDate = AccountOpeningDate.fromDate(
             await this.dateService.today()
         );

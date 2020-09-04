@@ -12,16 +12,14 @@ export class FirebaseAccountRepository implements AccountRepository {
     }
 
     async findById(accountId: AccountId): Promise<Account | null> {
-        console.log(accountId);
         const result = await this.firestore.collection('accounts').doc(accountId.value).get();
-        console.log('result', result.exists);
+
         if (!result.exists) {
             return null;
         }
 
         return AccountMapper.fromFirebase(result);
     }
-
 
     async store(account: Account): Promise<void> {
         const raw = AccountMapper.toFirebase(account);
@@ -32,7 +30,6 @@ export class FirebaseAccountRepository implements AccountRepository {
 
         return Promise.resolve();
     }
-
 
     private get firestore(): firebase.firestore.Firestore {
         return this.firebaseClient.firestore
