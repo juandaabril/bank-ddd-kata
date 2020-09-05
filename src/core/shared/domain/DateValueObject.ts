@@ -1,16 +1,21 @@
 import {DateTimeFormatter, LocalDate} from "@js-joda/core";
+import {ValueObject} from "./ValueObject";
 
 const FORMATTER =  DateTimeFormatter.ofPattern('dd/MM/yyyy');
 
-export class DateValueObject {
+export class DateValueObject extends ValueObject<LocalDate>{
 
-    private _value: LocalDate;
-
-    constructor(value: string) {
-        this._value = LocalDate.parse(value, FORMATTER);
+    equals(date: DateValueObject): boolean {
+        return this.value.equals(date.value);
     }
 
-    get value(): string {
-        return this._value.format(FORMATTER);
+    format(): string {
+        return this.value.format(FORMATTER);
+    }
+
+    static fromString(date: string): DateValueObject {
+        const localDate = LocalDate.parse(date, FORMATTER);
+
+        return new DateValueObject(localDate);
     }
 }

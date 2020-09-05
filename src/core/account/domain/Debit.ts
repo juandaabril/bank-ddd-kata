@@ -1,18 +1,9 @@
 import {TransactionDate} from "./TransactionDate";
 import {Amount} from "./Amount";
 import {Description} from "./Description";
+import {Transaction} from "./Transaction";
 
-export class Debit {
-    private _description: Description;
-    private _amount: Amount;
-    private _transactionDate: TransactionDate;
-
-
-    constructor(description: Description, amount: Amount, transactionDate: TransactionDate) {
-        this._description = description;
-        this._amount = amount;
-        this._transactionDate = transactionDate;
-    }
+export class Debit extends Transaction {
 
     static create(description: Description, amount: Amount, transactionDate: TransactionDate): Debit {
         return new Debit(
@@ -22,15 +13,4 @@ export class Debit {
         );
     }
 
-    get description(): Description {
-        return this._description;
-    }
-
-    get amount(): Amount {
-        return this._amount;
-    }
-
-    get transactionDate(): TransactionDate {
-        return this._transactionDate;
-    }
 }

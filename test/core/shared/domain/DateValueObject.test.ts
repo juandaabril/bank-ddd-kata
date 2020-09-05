@@ -1,18 +1,23 @@
 import {DateValueObject} from "../../../../src/core/shared/domain/DateValueObject";
 
-describe('SimpleDate should', () => {
+describe('DateValueObject', () => {
 
-    test('can create a simple date', () => {
-        const simpleDate = new DateValueObject('05/10/2020');
+    test('can create a DateValueObject from string', () => {
+        const date = '24/02/2019';
 
-        expect(simpleDate.value).toBe('05/10/2020');
+        const dateValueObject = DateValueObject.fromString(date);
+
+        expect(dateValueObject).not.toBeNull();
+        expect(dateValueObject.format()).toBe(date);
     });
 
+    test('two DateValueObject are equal', () => {
+        const date = '24/02/2019';
 
-    test('can create a simple date with zero month', () => {
-        const simpleDate = new DateValueObject('05/01/2020');
+        const dateValueObjectA = DateValueObject.fromString(date);
+        const dateValueObjectB = DateValueObject.fromString(date);
 
-        expect(simpleDate.value).toBe('05/01/2020');
+
+        expect(dateValueObjectA).toEqual(dateValueObjectB);
     });
-
 });

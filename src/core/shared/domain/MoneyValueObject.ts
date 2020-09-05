@@ -1,11 +1,5 @@
-export class MoneyValueObject {
-    private _value: number;
+import {ValueObject} from "./ValueObject";
 
-    constructor(value: number) {
-        this._value = value;
-    }
+export class MoneyValueObject extends ValueObject<number> {
 
-    get value(): number {
-        return this._value;
-    }
 }

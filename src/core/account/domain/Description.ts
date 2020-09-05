@@ -1,4 +1,7 @@
-import {StringValueObject} from "../../shared/domain/StringValueObject";
+import {ValueObject} from "../../shared/domain/ValueObject";
 
-export class Description extends StringValueObject {
+export class Description extends ValueObject<string> {
+    static fromString(value: string): Description {
+        return new Description(value);
+    }
 }
