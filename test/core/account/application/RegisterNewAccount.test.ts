@@ -3,18 +3,18 @@ import {DateService} from "../../../../src/core/shared/domain/DateService";
 import {DateValueObject} from "../../../../src/core/shared/domain/DateValueObject";
 import {DateValueObjectMother} from "../../shared/domain/DateValueObjectMother";
 import {AccountRepository} from "../../../../src/core/account/domain/AccountRepository";
-import {RegisterANewAccount} from "../../../../src/core/account/application/RegisterANewAccount";
+import {RegisterNewAccount} from "../../../../src/core/account/application/RegisterNewAccount";
 import {CustomerIdMother} from "../../customer/domain/CustomerIdMother";
 import {AccountIdMother} from "../domain/AccountIdMother";
 import {AccountId} from "../../../../src/core/account/domain/AccountId";
 import {CustomerId} from "../../../../src/core/customer/domain/CustomerId";
 import {InMemoryAccountRepository} from "../../../../src/core/account/infrastructure/repository/InMemoryAccountRepository";
 
-describe('RegisterANewAccount should', () => {
+describe('RegisterNewAccount should', () => {
 
     let accountRepository: AccountRepository;
     let dateService: DateService;
-    let registerANewAccount: RegisterANewAccount;
+    let registerNewAccount: RegisterNewAccount;
 
     test('create a new account', async () => {
         const openingDate = DateValueObjectMother.random();
@@ -33,7 +33,7 @@ describe('RegisterANewAccount should', () => {
         accountRepository = new InMemoryAccountRepository();
         dateService = mock<DateService>();
 
-        registerANewAccount = new RegisterANewAccount(
+        registerNewAccount = new RegisterNewAccount(
             accountRepository,
             instance(dateService)
         );
@@ -44,7 +44,7 @@ describe('RegisterANewAccount should', () => {
     }
 
     async function when_execute_the_use_case_with(accountId: AccountId, customerId: CustomerId) {
-        await registerANewAccount.execute(accountId, customerId);
+        await registerNewAccount.execute(accountId, customerId);
     }
 
     async function then_store_method_was_called_with(accountId: AccountId, customerId: CustomerId, dateValueObject: DateValueObject){

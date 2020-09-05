@@ -1,7 +1,7 @@
 import {Global, Injectable, Module} from "@nestjs/common";
 import {CloseAccount} from "../application/CloseAccount";
 import {DepositFundsIntoAccount} from "../application/DepositFundsIntoAccount";
-import {RegisterANewAccount} from "../application/RegisterANewAccount";
+import {RegisterNewAccount} from "../application/RegisterNewAccount";
 import {WithdrawFundsFromAccount} from "../application/WithdrawFundsFromAccount";
 import {InMemoryAccountRepository} from "./repository/InMemoryAccountRepository";
 import {LocalDateService} from "../../shared/infrastructure/LocalDateService";
@@ -14,9 +14,9 @@ const accountRepository = {provide: 'AccountRepository', useClass: FirebaseAccou
 
 //use cases
 const registerANewAccount = {
-    provide: RegisterANewAccount,
+    provide: RegisterNewAccount,
     useFactory: (accountRepository: AccountRepository, dateService: DateService) => {
-        return new RegisterANewAccount(accountRepository, dateService);
+        return new RegisterNewAccount(accountRepository, dateService);
     },
     inject: ['AccountRepository', 'DateService'],
 };

@@ -5,7 +5,7 @@ import {AccountId} from "../domain/AccountId";
 import {CustomerId} from "../../customer/domain/CustomerId";
 import {DateService} from "../../shared/domain/DateService";
 
-export class RegisterANewAccount {
+export class RegisterNewAccount {
 
     constructor(
         private accountRepository: AccountRepository,

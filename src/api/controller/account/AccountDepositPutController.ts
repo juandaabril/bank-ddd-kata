@@ -1,5 +1,5 @@
 import {Body, Controller, Post, Put} from '@nestjs/common';
-import {RegisterANewAccount} from "../../../core/account/application/RegisterANewAccount";
+import {RegisterNewAccount} from "../../../core/account/application/RegisterNewAccount";
 import {AccountId} from "../../../core/account/domain/AccountId";
 import {CustomerId} from "../../../core/customer/domain/CustomerId";
 import {DepositFundsIntoAccount} from "../../../core/account/application/DepositFundsIntoAccount";
