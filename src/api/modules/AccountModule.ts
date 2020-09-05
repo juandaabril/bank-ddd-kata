@@ -1,13 +1,10 @@
-import {Global, Injectable, Module} from "@nestjs/common";
-import {CloseAccount} from "../application/CloseAccount";
-import {DepositFundsIntoAccount} from "../application/DepositFundsIntoAccount";
-import {RegisterNewAccount} from "../application/RegisterNewAccount";
-import {WithdrawFundsFromAccount} from "../application/WithdrawFundsFromAccount";
-import {InMemoryAccountRepository} from "./repository/InMemoryAccountRepository";
-import {LocalDateService} from "../../shared/infrastructure/LocalDateService";
-import {AccountRepository, AccountRepositoryName} from "../domain/AccountRepository";
-import {DateService} from "../../shared/domain/DateService";
-import {FirebaseAccountRepository} from "./repository/FirebaseAccountRepository";
+import {Global, Module} from "@nestjs/common";
+import {CloseAccount} from "../../core/account/application/CloseAccount";
+import {DepositFundsIntoAccount} from "../../core/account/application/DepositFundsIntoAccount";
+import {RegisterNewAccount} from "../../core/account/application/RegisterNewAccount";
+import {AccountRepository} from "../../core/account/domain/AccountRepository";
+import {DateService} from "../../core/shared/domain/DateService";
+import {FirebaseAccountRepository} from "../../core/account/infrastructure/repository/FirebaseAccountRepository";
 
 //repositories
 const accountRepository = {provide: 'AccountRepository', useClass: FirebaseAccountRepository};

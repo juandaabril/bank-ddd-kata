@@ -4,7 +4,7 @@ import {CustomerId} from "../../../core/customer/domain/CustomerId";
 import {CloseAccount} from "../../../core/account/application/CloseAccount";
 import {
     setErrorHandling
-} from "../../../core/shared/infrastructure/HttpExceptionFilter";
+} from "../../filters/HttpExceptionFilter";
 import {AccountCannotBeClosedWithExistingFunds} from "../../../core/account/domain/Account";
 
 export class Request {

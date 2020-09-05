@@ -1,5 +1,5 @@
 import {ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, UseFilters} from "@nestjs/common";
-import {RuntimeError} from "../domain/RuntimeError";
+import {RuntimeError} from "../../core/shared/domain/RuntimeError";
 
 export type Exception = {
     type: any;

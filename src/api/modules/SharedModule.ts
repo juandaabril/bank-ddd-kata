@@ -1,7 +1,7 @@
 import {Global, Module} from "@nestjs/common";
-import {LocalDateService} from "../../shared/infrastructure/LocalDateService";
-import {DateService} from "../../shared/domain/DateService";
-import {FirebaseClient} from "./FirebaseClient";
+import {LocalDateService} from "../../core/shared/infrastructure/LocalDateService";
+import {DateService} from "../../core/shared/domain/DateService";
+import {FirebaseClient} from "../../core/shared/infrastructure/FirebaseClient";
 
 @Global()
 @Module({

@@ -1,7 +1,7 @@
 import {Test, TestingModule} from '@nestjs/testing';
 import {INestApplication} from '@nestjs/common';
 import * as request from 'supertest';
-import {MainModule} from "../../../../src/MainModule";
+import {MainModule} from "../../../../src/api/modules/MainModule";
 
 describe('AccountDepositPutController (e2e)', () => {
     let app: INestApplication;

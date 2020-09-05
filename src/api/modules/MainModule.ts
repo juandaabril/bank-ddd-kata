@@ -1,8 +1,8 @@
 import {Module} from "@nestjs/common";
 import {ConfigModule} from "@nestjs/config";
-import {SharedModule} from "./core/shared/infrastructure/SharedModule";
-import {AccountModule} from "./core/account/infrastructure/AccountModule";
-import {ApiModule} from "./api/ApiModule";
+import {SharedModule} from "./SharedModule";
+import {AccountModule} from "./AccountModule";
+import {ApiModule} from "./ApiModule";
 
 @Module({
     imports: [
