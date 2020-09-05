@@ -1,7 +1,7 @@
-import {AccountRepository} from "../../domain/AccountRepository";
-import {Account} from '../../domain/Account';
-import {AccountId} from "../../domain/AccountId";
-import {FirebaseClient} from "../../../shared/infrastructure/FirebaseClient";
+import {AccountRepository} from "../domain/AccountRepository";
+import {Account} from '../domain/Account';
+import {AccountId} from "../domain/AccountId";
+import {FirebaseClient} from "../../shared/infrastructure/FirebaseClient";
 import {Injectable} from "@nestjs/common";
 import {AccountMapper} from "./AccountMapper";
 
@@ -11,11 +11,11 @@ export class FirebaseAccountRepository implements AccountRepository {
     constructor(private firebaseClient: FirebaseClient) {
     }
 
-    async findById(accountId: AccountId): Promise<Account | null> {
+    async findById(accountId: AccountId): Promise<Account | undefined> {
         const result = await this.firestore.collection('accounts').doc(accountId.value).get();
 
         if (!result.exists) {
-            return null;
+            return undefined;
         }
 
         return AccountMapper.fromFirebase(result);

@@ -18,7 +18,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:acceptance": "jest --config test/api/jest-acceptance.json"
+    "test:acceptance": "jest --config test/jest-acceptance.json",
+    "test:integration": "jest --config test/jest-integration.json --detectOpenHandles"
   },
   "dependencies": {
     "@js-joda/core": "^3.1.0",

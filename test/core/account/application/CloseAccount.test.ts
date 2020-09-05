@@ -3,7 +3,7 @@ import {AccountRepository} from "../../../../src/core/account/domain/AccountRepo
 import {Account, AccountCannotBeClosedWithExistingFunds} from "../../../../src/core/account/domain/Account";
 import {AccountId} from "../../../../src/core/account/domain/AccountId";
 import {CustomerId} from "../../../../src/core/customer/domain/CustomerId";
-import {InMemoryAccountRepository} from "../../../../src/core/account/infrastructure/repository/InMemoryAccountRepository";
+import {InMemoryAccountRepository} from "../../../../src/core/account/infrastructure/InMemoryAccountRepository";
 import {CloseAccount} from "../../../../src/core/account/application/CloseAccount";
 import {AccountStatus} from "../../../../src/core/account/domain/AccountStatus";
 

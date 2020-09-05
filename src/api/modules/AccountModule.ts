@@ -4,7 +4,7 @@ import {DepositFundsIntoAccount} from "../../core/account/application/DepositFun
 import {RegisterNewAccount} from "../../core/account/application/RegisterNewAccount";
 import {AccountRepository} from "../../core/account/domain/AccountRepository";
 import {DateService} from "../../core/shared/domain/DateService";
-import {FirebaseAccountRepository} from "../../core/account/infrastructure/repository/FirebaseAccountRepository";
+import {FirebaseAccountRepository} from "../../core/account/infrastructure/FirebaseAccountRepository";
 
 //repositories
 const accountRepository = {provide: 'AccountRepository', useClass: FirebaseAccountRepository};

@@ -1,13 +1,13 @@
-import {Account} from "../../domain/Account";
-import {Debit} from "../../domain/Debit";
-import {Credit} from "../../domain/Credit";
-import {AccountId} from "../../domain/AccountId";
-import {CustomerId} from "../../../customer/domain/CustomerId";
-import {AccountStatus} from "../../domain/AccountStatus";
-import {AccountOpeningDate} from "../../domain/AccountOpeningDate";
-import {Description} from "../../domain/Description";
-import {Amount} from "../../domain/Amount";
-import {TransactionDate} from "../../domain/TransactionDate";
+import {Account} from "../domain/Account";
+import {Debit} from "../domain/Debit";
+import {Credit} from "../domain/Credit";
+import {AccountId} from "../domain/AccountId";
+import {CustomerId} from "../../customer/domain/CustomerId";
+import {AccountStatus} from "../domain/AccountStatus";
+import {AccountOpeningDate} from "../domain/AccountOpeningDate";
+import {Description} from "../domain/Description";
+import {Amount} from "../domain/Amount";
+import {TransactionDate} from "../domain/TransactionDate";
 
 export class AccountMapper {
 
@@ -28,7 +28,7 @@ export class AccountMapper {
     static toFirebase(account: Account) {
         return {
             id: account.id.value,
-            openingDate: account.openingDate.value,
+            openingDate: account.openingDate.format(),
             status: account.status.toString(),
             customerId: account.customerId.value,
             debits: DebitMapper.toFirebase(account.debits),
@@ -53,7 +53,7 @@ export class DebitMapper {
             return {
                 description: debit.description.value,
                 amount: debit.amount.value,
-                transactionDate: debit.transactionDate.value
+                transactionDate: debit.transactionDate.format()
             }
         });
     }
@@ -74,7 +74,7 @@ export class CreditMapper {
             return {
                 description: credit.description.value,
                 amount: credit.amount.value,
-                transactionDate: credit.transactionDate.value
+                transactionDate: credit.transactionDate.format()
             }
         });
     }

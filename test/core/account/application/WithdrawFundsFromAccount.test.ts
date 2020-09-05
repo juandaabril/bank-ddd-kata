@@ -15,7 +15,7 @@ import {CustomerId} from "../../../../src/core/customer/domain/CustomerId";
 import {Amount} from "../../../../src/core/account/domain/Amount";
 import {DescriptionMother} from "../domain/DescriptionMother";
 import {Description} from "../../../../src/core/account/domain/Description";
-import {InMemoryAccountRepository} from "../../../../src/core/account/infrastructure/repository/InMemoryAccountRepository";
+import {InMemoryAccountRepository} from "../../../../src/core/account/infrastructure/InMemoryAccountRepository";
 import {WithdrawFundsFromAccount} from "../../../../src/core/account/application/WithdrawFundsFromAccount";
 
 describe('WithdrawFundsFromAccount should', () => {

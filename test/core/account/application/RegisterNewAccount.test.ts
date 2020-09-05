@@ -8,7 +8,7 @@ import {CustomerIdMother} from "../../customer/domain/CustomerIdMother";
 import {AccountIdMother} from "../domain/AccountIdMother";
 import {AccountId} from "../../../../src/core/account/domain/AccountId";
 import {CustomerId} from "../../../../src/core/customer/domain/CustomerId";
-import {InMemoryAccountRepository} from "../../../../src/core/account/infrastructure/repository/InMemoryAccountRepository";
+import {InMemoryAccountRepository} from "../../../../src/core/account/infrastructure/InMemoryAccountRepository";
 
 describe('RegisterNewAccount should', () => {
 
