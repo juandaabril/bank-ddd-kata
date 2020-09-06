@@ -59,7 +59,7 @@ export class Account {
         this._status = AccountStatus.CLOSED;
     }
 
-    private get balance(): number {
+    get balance(): number {
         const totalDebits = this._debits
             .map((debit) => debit.amount.value)
             .reduce((prev, current) => prev + current, 0);

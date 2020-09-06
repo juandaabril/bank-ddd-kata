@@ -12,7 +12,7 @@ describe('GetCustomerDetails should', () => {
     let getCustomerDetails: GetCustomerDetails;
     let customerDetails: CustomerDetails;
 
-    test('create a new customer', async () => {
+    test('get customer details', async () => {
         const customerId = CustomerIdMother.random();
         const customer = CustomerMother.withCustomerId(customerId);
 
@@ -32,7 +32,6 @@ describe('GetCustomerDetails should', () => {
         );
     }
 
-
     async function and_a_customer_with_this_data(customer: Customer) {
         await customerRepository.store(customer);
     }
@@ -50,5 +49,4 @@ describe('GetCustomerDetails should', () => {
         expect(customerDetails.lastName).toBe(customer.lastName.value);
         expect(customerDetails.mobilePhone).toBe(customer.mobilePhone.value);
     }
-
 });
