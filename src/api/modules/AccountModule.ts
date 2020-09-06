@@ -5,6 +5,7 @@ import {RegisterNewAccount} from "../../core/account/application/RegisterNewAcco
 import {AccountRepository} from "../../core/account/domain/AccountRepository";
 import {DateService} from "../../core/shared/domain/DateService";
 import {FirebaseAccountRepository} from "../../core/account/infrastructure/FirebaseAccountRepository";
+import {GetAccountDetails} from "../../core/account/infrastructure/GetAccountDetails";
 
 //repositories
 const accountRepository = {provide: 'AccountRepository', useClass: FirebaseAccountRepository};
@@ -30,19 +31,27 @@ const closeAccount = {
     inject: ['AccountRepository']
 };
 
+const getAccountDetails = {
+    provide: GetAccountDetails,
+    useFactory: (accountRepository: AccountRepository) => new GetAccountDetails(accountRepository),
+    inject: ['AccountRepository']
+};
+
 @Global()
 @Module({
     providers: [
         accountRepository,
         registerANewAccount,
         depositFundsIntoAccount,
-        closeAccount
+        closeAccount,
+        getAccountDetails
     ],
     exports: [
         accountRepository,
         registerANewAccount,
         depositFundsIntoAccount,
-        closeAccount
+        closeAccount,
+        getAccountDetails
     ],
 })
 export class AccountModule {

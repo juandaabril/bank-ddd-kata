@@ -5,6 +5,7 @@ import {CustomerGetController} from "../controller/customer/CustomerGetControlle
 import {AccountPostController} from "../controller/account/AccountPostController";
 import {AccountClosePutController} from "../controller/account/AccountClosePutController";
 import {AccountDepositPutController} from "../controller/account/AccountDepositPutController";
+import {AccountGetController} from "../controller/account/AccountGetController";
 
 @Module({
     controllers: [
@@ -12,7 +13,8 @@ import {AccountDepositPutController} from "../controller/account/AccountDepositP
         CustomerGetController,
         AccountPostController,
         AccountDepositPutController,
-        AccountClosePutController
+        AccountClosePutController,
+        AccountGetController
     ]
 })
 export class ApiModule {

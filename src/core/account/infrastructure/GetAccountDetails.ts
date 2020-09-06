@@ -10,7 +10,7 @@ export class GetAccountDetails {
 
     async execute(accountId: AccountId, customerId: CustomerId): Promise<AccountDetails> {
         const account = await this.accountRepository.findById(accountId);
-
+        console.log(account);
         return {
             accountId: account.id.value,
             customerId: account.customerId.value,

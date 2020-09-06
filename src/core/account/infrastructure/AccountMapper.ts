@@ -8,6 +8,7 @@ import {AccountOpeningDate} from "../domain/AccountOpeningDate";
 import {Description} from "../domain/Description";
 import {Amount} from "../domain/Amount";
 import {TransactionDate} from "../domain/TransactionDate";
+import {DateValueObject} from "../../shared/domain/DateValueObject";
 
 export class AccountMapper {
 
@@ -19,7 +20,9 @@ export class AccountMapper {
             new AccountId(document.id),
             new CustomerId(document.get('customerId')),
             AccountStatus[document.get('status')],
-            new AccountOpeningDate(document.get('openingDate')),
+            new AccountOpeningDate(
+                DateValueObject.fromString(document.get('openingDate')).value
+            ),
             debits,
             credits
         );
