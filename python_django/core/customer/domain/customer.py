@@ -1,8 +1,10 @@
 from core.customer.domain.customer_id import CustomerId
 from core.customer.domain.customer_name import CustomerName
+from core.customer.domain.customer_was_created import CustomerWasCreated
+from core.shared.domain.aggregate_root import AggregateRoot
 
 
-class Customer(object):
+class Customer(AggregateRoot):
     _customer_id: CustomerId
     _customer_name: CustomerName
 
@@ -12,7 +14,13 @@ class Customer(object):
 
     @staticmethod
     def create(customer_id: CustomerId, customer_name: CustomerName):
-        return Customer(customer_id, customer_name)
+        customer = Customer(customer_id, customer_name)
+        print(customer_name.value)
+        customer.record(
+            CustomerWasCreated(customer_id.value, customer_name.value)
+        )
+
+        return customer
 
     @property
     def id(self) -> CustomerId:
