@@ -1,22 +1,25 @@
 import unittest
+import uuid
 
 from hamcrest import *
 
-from core.shared.domain.string_value_object import StringValueObject
+from core.shared.domain.uuid_value_object import UUIDValueObject, InvalidUUID
 
 ANY_STRING = 'ANY_STRING'
 
 
-class TestStringValueObject(unittest.TestCase):
-    def test_should_create_a_string_value_object(self):
-        string_value_object = StringValueObject(ANY_STRING)
-        assert_that(string_value_object, not_none())
-        assert_that(string_value_object.value, equal_to(ANY_STRING))
+class TestUUIDValueObject(unittest.TestCase):
+    def test_should_create_a_uuid_id(self):
+        random_uuid = str(uuid.uuid4())
 
-    def test_should_two_value_object_are_equal_with_the_same_value(self):
-        string_value_object_a = StringValueObject(ANY_STRING)
-        string_value_object_b = StringValueObject(ANY_STRING)
-        assert_that(string_value_object_a, equal_to(string_value_object_b))
+        customer_id = UUIDValueObject(random_uuid)
+
+        assert_that(customer_id, not_none())
+
+    def test_should_validate_the_uuid(self):
+        random_uuid = 'invalid_uuid'
+
+        self.assertRaises(InvalidUUID, lambda: UUIDValueObject(random_uuid))
 
 
 if __name__ == '__main__':

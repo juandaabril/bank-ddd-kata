@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from api.routes.customer_route import CustomerRoute
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('customer', CustomerRoute.as_view()),
 ]
