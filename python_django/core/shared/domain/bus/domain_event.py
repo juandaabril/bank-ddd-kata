@@ -4,22 +4,24 @@ from datetime import datetime
 
 
 class DomainEvent(metaclass=ABCMeta):
-    _aggregate_id: str
     _event_id: str
     _occurred_on: str
 
-    def __init__(self, aggregate_id: str, event_id='', occurred_on=''):
-        self._aggregate_id = aggregate_id
+    def __init__(self, event_id='', occurred_on=''):
         self._event_id = event_id or str(uuid.uuid4())
         self._occurred_on = occurred_on or datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+
+    def to_json(self) -> dict:
+        return {
+            'eventId': self.event_id,
+            'occurredOn': self.occurred_on,
+            'type': self.__class__.__name__,
+            'body': self.body()
+        }
 
     @abstractmethod
     def body(self) -> dict:
         raise NotImplemented()
-
-    @property
-    def aggregate_id(self) -> str:
-        return self._aggregate_id
 
     @property
     def event_id(self) -> str:
