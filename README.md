@@ -14,5 +14,5 @@ This project was designed do cover the following use cases and requirements:
 `Copy from https://github.com/ivanpaulovich/ddd-tdd-rich-domain-model-dojo-kata`
 
 ## Projects
-+ [typescript-nestjs](typescript-nestjs/README.md)
-+ [python-django](typescript-nestjs/README.md)
++ [typescript_nestjs](typescript_nestjs/README.md)
++ [python_django](pythob_django/README.md)
