@@ -1,6 +1,7 @@
 from rest_framework import status, serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.db import transaction
 
 from core.customer.application.create_customer import CreateCustomer
 from core.customer.application.get_customers import GetCustomers, CustomerResponse
@@ -26,6 +27,7 @@ class CustomerRoute(APIView):
         serializer = CustomerResponseSerializer(result, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @transaction.atomic
     def post(self, request):
         create_customer: CreateCustomer = request.provider['create_customer']
         customer_id = CustomerId(request.data['id'])

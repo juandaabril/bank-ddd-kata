@@ -1,10 +1,16 @@
 from core.customer.application.create_customer import CreateCustomer
 from core.customer.application.get_customers import GetCustomers
 from core.customer.domain.customer_repository import CustomerRepository
+from core.customer.infrastructure.django_customer_repository import DjangoCustomerRepository
 from core.customer.infrastructure.in_memory_customer_repository import InMemoryCustomerRepository
+from core.shared.domain.bus.event_bus import EventBus
+from core.shared.infrastructure.bus.django_event_store import DjangoEventStore
 
-customer_repository: CustomerRepository = InMemoryCustomerRepository()
-create_customer = CreateCustomer(customer_repository)
+#customer_repository: CustomerRepository = InMemoryCustomerRepository()
+customer_repository: CustomerRepository = DjangoCustomerRepository()
+event_bus: EventBus = DjangoEventStore()
+
+create_customer = CreateCustomer(customer_repository, event_bus)
 get_customers = GetCustomers(customer_repository)
 
 provider = {
