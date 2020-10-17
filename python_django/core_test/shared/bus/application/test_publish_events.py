@@ -43,13 +43,11 @@ class TestPublishEvents(unittest.TestCase):
         self.publish_events(ANY_EXCHANGE_NAME)
 
     def then_the_message_broker_receives_this_event(self, domain_event: DomainEvent):
-        events = self.message_broker_service.send.call_args[0]
-        print(events)
-        assert_that(len(events), equal_to(1))
-        assert_that(events[0].event_id, equal_to(domain_event.event_id))
-        assert_that(events[0].occurred_on, equal_to(domain_event.occurred_on))
-        assert_that(events[0].type, equal_to(domain_event.type))
-        assert_that(events[0].body(), equal_to(domain_event.body()))
+        (exchange_name, message_type, json_event) = self.message_broker_service.send.call_args[0]
+
+        assert_that(exchange_name, equal_to(ANY_EXCHANGE_NAME))
+        assert_that(message_type, equal_to(domain_event.type))
+        assert_that(json_event, equal_to(domain_event.to_json()))
 
 
 if __name__ == '__main__':
