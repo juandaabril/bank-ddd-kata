@@ -6,7 +6,7 @@ from hamcrest import *
 from core.customer.application.create_customer import CreateCustomer
 from core.customer.domain.customer_repository import CustomerRepository
 from core.customer.infrastructure.in_memory_customer_repository import InMemoryCustomerRepository
-from core.shared.domain.bus.event_bus import EventBus
+from core.shared.bus.domain.event_bus import EventBus
 from core_test.customer.domain.customer_id_mother import CustomerIdMother
 from core_test.customer.domain.customer_name_mother import CustomerNameMother
 

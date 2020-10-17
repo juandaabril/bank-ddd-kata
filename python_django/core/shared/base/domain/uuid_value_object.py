@@ -1,6 +1,6 @@
 import uuid
 
-from core.shared.domain.string_value_object import StringValueObject
+from core.shared.base.domain.string_value_object import StringValueObject
 
 
 class UUIDValueObject(StringValueObject):

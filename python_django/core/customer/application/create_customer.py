@@ -2,7 +2,7 @@ from core.customer.domain.customer import Customer
 from core.customer.domain.customer_id import CustomerId
 from core.customer.domain.customer_name import CustomerName
 from core.customer.domain.customer_repository import CustomerRepository
-from core.shared.domain.bus.event_bus import EventBus
+from core.shared.bus.domain.event_bus import EventBus
 
 
 class CreateCustomer(object):

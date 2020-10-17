@@ -3,7 +3,7 @@ import uuid
 
 from hamcrest import *
 
-from core.shared.domain.uuid_value_object import UUIDValueObject, InvalidUUID
+from core.shared.base.domain.uuid_value_object import UUIDValueObject, InvalidUUID
 
 ANY_STRING = 'ANY_STRING'
 

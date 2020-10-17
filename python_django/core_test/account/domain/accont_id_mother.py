@@ -1,5 +1,5 @@
 from core.account.domain.accont_id import AccountId
-from core_test.shared.domain.uuid_mother import UUIDMother
+from core_test.shared.base.domain.uuid_mother import UUIDMother
 
 
 class AccountIdMother(object):

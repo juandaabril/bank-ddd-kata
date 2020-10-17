@@ -1,6 +1,4 @@
-from abc import ABC
-
-from core.shared.domain.bus.domain_event import DomainEvent
+from core.shared.bus.domain.domain_event import DomainEvent
 
 
 class CustomerWasCreated(DomainEvent):

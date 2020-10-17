@@ -1,7 +1,5 @@
-import uuid
-
 from core.customer.domain.customer_id import CustomerId
-from core_test.shared.domain.uuid_mother import UUIDMother
+from core_test.shared.base.domain.uuid_mother import UUIDMother
 
 
 class CustomerIdMother:

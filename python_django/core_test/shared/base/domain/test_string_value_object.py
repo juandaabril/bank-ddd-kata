@@ -2,7 +2,7 @@ import unittest
 
 from hamcrest import *
 
-from core.shared.domain.string_value_object import StringValueObject
+from core.shared.base.domain.string_value_object import StringValueObject
 
 ANY_STRING = 'ANY_STRING'
 

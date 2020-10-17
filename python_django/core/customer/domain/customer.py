@@ -1,7 +1,7 @@
 from core.customer.domain.customer_id import CustomerId
 from core.customer.domain.customer_name import CustomerName
 from core.customer.domain.customer_was_created import CustomerWasCreated
-from core.shared.domain.aggregate_root import AggregateRoot
+from core.shared.base.domain.aggregate_root import AggregateRoot
 
 
 class Customer(AggregateRoot):

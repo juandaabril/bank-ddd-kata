@@ -7,7 +7,8 @@ from core.customer.domain.customer_repository import CustomerRepository
 
 class InMemoryCustomerRepository(CustomerRepository):
 
-    _database = {}
+    def __init__(self) -> None:
+        self._database = {}
 
     def find_by_id(self, customer_id: CustomerId) -> Customer:
         return self._database.get(customer_id.value, None)

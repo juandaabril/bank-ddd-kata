@@ -5,7 +5,8 @@ from core.account.domain.account_repository import AccountRepository
 
 class InMemoryAccountRepository(AccountRepository):
 
-    _database = {}
+    def __init__(self) -> None:
+        self._database = {}
 
     def find_by_id(self, account_id: AccountId) -> Account:
         return self._database.get(account_id.value, None)

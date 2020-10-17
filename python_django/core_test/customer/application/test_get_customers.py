@@ -30,8 +30,7 @@ class TestGetCustomers(unittest.TestCase):
         self.customer_repository.store(customer)
 
     def when_get_all_the_customers(self):
-        response = self.get_customers()
-        return response
+        return self.get_customers()
 
     def then_the_result_has_this_data(self, response):
         assert_that(response, not_none())

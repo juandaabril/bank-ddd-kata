@@ -19,7 +19,7 @@ class CreateAccount(object):
 
         account = Account.create(account_id, customer_id)
 
-        self._account_repositoryº.store(account)
+        self._account_repository.store(account)
 
     def _ensure_customer_exists(self, customer_id):
         customer = self._customer_repository.find_by_id(customer_id)
