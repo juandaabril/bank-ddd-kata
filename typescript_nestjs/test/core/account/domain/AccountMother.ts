@@ -40,13 +40,13 @@ export class AccountMother {
         );
     }
 
-    static withThisBalance(value: number) {
+    static withThisBalance(balance: MoneyValueObject) {
         return new Account(
             AccountIdMother.random(),
             CustomerIdMother.random(),
             AccountStatus.OPEN,
             DateValueObjectMother.random(),
-            new MoneyValueObject(value)
+            balance
         );
     }
 

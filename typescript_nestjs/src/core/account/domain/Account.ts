@@ -40,12 +40,11 @@ export class Account {
     }
 
     withdraw(description: Description, amount: MoneyValueObject, transactionDate: DateValueObject) {
-        if (this.balance.value - amount.value < 0) {
+        if (this.balance.subtract(amount).value < 0) {
             throw new WithdrawWithInsufficientBalance();
         }
 
-        const credit = Credit.create(description, amount, transactionDate);
-        //this._credits.push(credit);
+        this._balance = this.balance.subtract(amount);
     }
 
     close() {

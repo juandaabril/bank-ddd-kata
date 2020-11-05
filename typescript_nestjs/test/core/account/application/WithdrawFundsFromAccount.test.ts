@@ -9,7 +9,6 @@ import {
 } from '../../../../src/core/account/domain/Account';
 import { AccountId } from '../../../../src/core/account/domain/AccountId';
 import { CustomerId } from '../../../../src/core/customer/domain/CustomerId';
-import { Amount } from '../../../../src/core/account/domain/Amount';
 import { DescriptionMother } from '../domain/DescriptionMother';
 import { Description } from '../../../../src/core/transaction/domain/Description';
 import { InMemoryAccountRepository } from '../../../../src/core/account/infrastructure/InMemoryAccountRepository';
@@ -25,7 +24,8 @@ describe('WithdrawFundsFromAccount should', () => {
     let executor: () => void;
 
     test('add a credit into the account', async () => {
-        const account = AccountMother.withThisBalance(1000);
+        const balance = new MoneyValueObject(1000);
+        const account = AccountMother.withThisBalance(balance);
         const transactionDate = DateValueObjectMother.random();
         const description = DescriptionMother.random();
         const amount = new MoneyValueObject(100);
@@ -36,11 +36,12 @@ describe('WithdrawFundsFromAccount should', () => {
 
         await when_a_withdraw_is_made(account.id, account.customerId, description, amount);
 
-        await then_the_accounts_has_this_data(account.id, account.customerId, description, amount, transactionDate);
+        await then_the_accounts_has_this_data(account.id, account.customerId, balance, description, amount, transactionDate);
     });
 
     test('do not allow the Customer to Withdraw more than the existing funds', async () => {
-        const account = AccountMother.withThisBalance(1000);
+        const balance = new MoneyValueObject(0);
+        const account = AccountMother.withThisBalance(balance);
         const transactionDate = DateValueObjectMother.random();
         const description = DescriptionMother.random();
         const amount = new MoneyValueObject(100);
@@ -73,27 +74,23 @@ describe('WithdrawFundsFromAccount should', () => {
         await accountRepository.store(account);
     }
 
-    async function when_a_withdraw_is_made(accountId: AccountId, customerId: CustomerId, description: Description, amount: Amount) {
+    async function when_a_withdraw_is_made(accountId: AccountId, customerId: CustomerId, description: Description, amount: MoneyValueObject) {
         await withdrawFundsFromAccount.execute(accountId, customerId, description, amount);
     }
 
-
-    async function when_a_withdraw_is_made_and_throw_error(accountId: AccountId, customerId: CustomerId, description: Description, amount: Amount) {
+    async function when_a_withdraw_is_made_and_throw_error(accountId: AccountId, customerId: CustomerId, description: Description, amount: MoneyValueObject) {
         executor = async () => {
             await withdrawFundsFromAccount.execute(accountId, customerId, description, amount);
         };
     }
 
-    async function then_the_accounts_has_this_data(accountId: AccountId, customerId: CustomerId, description: Description, amount: Amount, transactionDate: DateValueObject) {
+    async function then_the_accounts_has_this_data(accountId: AccountId, customerId: CustomerId, balance: MoneyValueObject, description: Description, amount: MoneyValueObject, transactionDate: DateValueObject) {
         const account = await accountRepository.findById(accountId);
 
         expect(account).not.toBeNull();
         expect(account.id).toStrictEqual(accountId);
         expect(account.customerId).toStrictEqual(customerId);
-        expect(account.credits.length).toBe(1);
-        expect(account.credits[0].description).toStrictEqual(description);
-        expect(account.credits[0].amount).toStrictEqual(amount);
-        expect(account.credits[0].transactionDate.value).toBe(transactionDate.value);
+        expect(account.balance).toBeEquals(balance.subtract(amount));
     }
 
     async function then_the_action_throw_this_error(error: any) {

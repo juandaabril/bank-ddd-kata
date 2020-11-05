@@ -6,4 +6,10 @@ export class MoneyValueObject extends NumberValueObject {
             this.value + amount.value
         )
     }
+
+    subtract(amount: MoneyValueObject) {
+        return new MoneyValueObject(
+            this.value - amount.value
+        )
+    }
 }

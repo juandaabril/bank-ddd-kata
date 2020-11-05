@@ -1,21 +1,20 @@
-import {AccountRepository} from "../domain/AccountRepository";
-import {AccountId} from "../domain/AccountId";
-import {CustomerId} from "../../customer/domain/CustomerId";
-import {Amount} from "../domain/Amount";
-import {TransactionDate} from "../../transaction/domain/TransactionDate";
-import {Description} from "../../transaction/domain/Description";
-import {DateService} from "../../shared/base/domain/DateService";
+import { AccountRepository } from '../domain/AccountRepository';
+import { AccountId } from '../domain/AccountId';
+import { CustomerId } from '../../customer/domain/CustomerId';
+import { Description } from '../../transaction/domain/Description';
+import { DateService } from '../../shared/base/domain/DateService';
+import { MoneyValueObject } from '../../shared/base/domain/MoneyValueObject';
 
 export class WithdrawFundsFromAccount {
     constructor(
         private accountRepository: AccountRepository,
-        private dateService: DateService
-    ) {}
+        private dateService: DateService,
+    ) {
+    }
 
-    async execute(accountId: AccountId, customerId: CustomerId, description: Description, amount: Amount): Promise<void> {
-        const today = await this.dateService.today();
-        const transactionDate = TransactionDate.fromDate(today);
+    async execute(accountId: AccountId, customerId: CustomerId, description: Description, amount: MoneyValueObject): Promise<void> {
         const account = await this.accountRepository.findById(accountId);
+        const transactionDate = await this.dateService.today();
 
         account.withdraw(description, amount, transactionDate);
 
