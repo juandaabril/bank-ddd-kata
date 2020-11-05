@@ -16,7 +16,7 @@ export class DateValueObject implements ValueObject {
 
         return new DateValueObject(localDate);
     }
-    equals(object: Object): boolean {
+    equals(object: any): boolean {
         if (object instanceof  DateValueObject) {
             return this._value.equals(object.value);
         }

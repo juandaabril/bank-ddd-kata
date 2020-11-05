@@ -1,4 +1,4 @@
-import {ValueObject} from "./ValueObject";
+import { ValueObject } from './ValueObject';
 
 export class NumberValueObject implements ValueObject {
     private _value: number;
@@ -7,9 +7,9 @@ export class NumberValueObject implements ValueObject {
         this._value = value;
     }
 
-    equals(object: Object): boolean {
-        if (object instanceof  NumberValueObject) {
-            return  this._value === object._value
+    equals(object: any): boolean {
+        if (object instanceof NumberValueObject) {
+            return this._value === object._value;
         }
         return false;
     }

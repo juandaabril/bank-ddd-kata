@@ -7,7 +7,7 @@ export class StringValueObject implements ValueObject {
         this._value = value;
     }
 
-    equals(object: Object): boolean {
+    equals(object: any): boolean {
         if (object instanceof  StringValueObject) {
             return  this._value === object._value
         }

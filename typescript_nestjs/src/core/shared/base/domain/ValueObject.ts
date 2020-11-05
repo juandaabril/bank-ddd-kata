@@ -1,4 +1,4 @@
 export interface ValueObject {
-    equals(object: Object): boolean;
+    equals(object: any): boolean;
     toString(): string;
 }
