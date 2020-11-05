@@ -1,11 +1,12 @@
-import {AccountMother} from "../domain/AccountMother";
-import {AccountRepository} from "../../../../src/core/account/domain/AccountRepository";
-import {Account, AccountCannotBeClosedWithExistingFunds} from "../../../../src/core/account/domain/Account";
-import {AccountId} from "../../../../src/core/account/domain/AccountId";
-import {CustomerId} from "../../../../src/core/customer/domain/CustomerId";
-import {InMemoryAccountRepository} from "../../../../src/core/account/infrastructure/InMemoryAccountRepository";
-import {CloseAccount} from "../../../../src/core/account/application/CloseAccount";
-import {AccountStatus} from "../../../../src/core/account/domain/AccountStatus";
+import { AccountMother } from '../domain/AccountMother';
+import { AccountRepository } from '../../../../src/core/account/domain/AccountRepository';
+import { Account, AccountCannotBeClosedWithExistingFunds } from '../../../../src/core/account/domain/Account';
+import { AccountId } from '../../../../src/core/account/domain/AccountId';
+import { CustomerId } from '../../../../src/core/customer/domain/CustomerId';
+import { InMemoryAccountRepository } from '../../../../src/core/account/infrastructure/InMemoryAccountRepository';
+import { CloseAccount } from '../../../../src/core/account/application/CloseAccount';
+import { AccountStatus } from '../../../../src/core/account/domain/AccountStatus';
+import { MoneyValueObject } from '../../../../src/core/shared/base/domain/MoneyValueObject';
 
 describe('CloseAccount should', () => {
 
@@ -25,7 +26,7 @@ describe('CloseAccount should', () => {
     });
 
     test('not close the account if the balance is not zero', async () => {
-        const account = AccountMother.withThisBalance(100);
+        const account = AccountMother.withThisBalance(new MoneyValueObject(100));
         given_a_use_case();
         await and_a_account_with_this_data(account);
 

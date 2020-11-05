@@ -1,10 +1,11 @@
-import {CustomerId} from "../../../../src/core/customer/domain/CustomerId";
-import {Account} from "../../../../src/core/account/domain/Account";
-import {AccountDetails, GetAccountDetails} from "../../../../src/core/account/infrastructure/GetAccountDetails";
-import {AccountMother} from "../domain/AccountMother";
-import {AccountRepository} from "../../../../src/core/account/domain/AccountRepository";
-import {InMemoryAccountRepository} from "../../../../src/core/account/infrastructure/InMemoryAccountRepository";
-import {AccountId} from "../../../../src/core/account/domain/AccountId";
+import { CustomerId } from '../../../../src/core/customer/domain/CustomerId';
+import { Account } from '../../../../src/core/account/domain/Account';
+import { AccountDetails, GetAccountDetails } from '../../../../src/core/account/infrastructure/GetAccountDetails';
+import { AccountMother } from '../domain/AccountMother';
+import { AccountRepository } from '../../../../src/core/account/domain/AccountRepository';
+import { InMemoryAccountRepository } from '../../../../src/core/account/infrastructure/InMemoryAccountRepository';
+import { AccountId } from '../../../../src/core/account/domain/AccountId';
+import { MoneyValueObject } from '../../../../src/core/shared/base/domain/MoneyValueObject';
 
 describe('GetAccountDetails should', () => {
 
@@ -13,7 +14,7 @@ describe('GetAccountDetails should', () => {
     let accountDetails: AccountDetails;
 
     test('get the account details', async () => {
-        const account = AccountMother.withThisBalance(1000);
+        const account = AccountMother.withThisBalance(new MoneyValueObject(1000));
 
         given_a_use_case();
         await and_a_account_whit_this_data(account);
@@ -27,7 +28,7 @@ describe('GetAccountDetails should', () => {
         accountRepository = new InMemoryAccountRepository();
 
         getAccountDetails = new GetAccountDetails(
-            accountRepository
+            accountRepository,
         );
     }
 
@@ -46,8 +47,6 @@ describe('GetAccountDetails should', () => {
         expect(accountDetails.customerId).toBe(account.customerId.value);
         expect(accountDetails.status).toBe(account.status);
         expect(accountDetails.openingDate).toBe(account.openingDate.format());
-        expect(accountDetails.balance).toBe(account.balance);
-        expect(accountDetails.debits.length).toBe(1);
-        expect(accountDetails.credits.length).toBe(0);
+        expect(accountDetails.balance).toBe(account.balance.value);
     }
 });
