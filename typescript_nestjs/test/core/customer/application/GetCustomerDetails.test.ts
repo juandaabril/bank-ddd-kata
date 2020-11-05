@@ -1,10 +1,10 @@
-import {CustomerId} from "../../../../src/core/customer/domain/CustomerId";
-import {CustomerRepository} from "../../../../src/core/customer/domain/CustomerRepository";
-import {CustomerIdMother} from "../domain/CustomerIdMother";
-import {InMemoryCustomerRepository} from "../../../../src/core/customer/infrastructure/InMemoryCustomerRepository";
-import {CustomerDetails, GetCustomerDetails} from "../../../../src/core/customer/application/GetCustomerDetails";
-import {CustomerMother} from "../domain/CustomerMother";
-import {Customer} from "../../../../src/core/customer/domain/Customer";
+import { CustomerId } from '../../../../src/core/customer/domain/CustomerId';
+import { CustomerRepository } from '../../../../src/core/customer/domain/CustomerRepository';
+import { CustomerIdMother } from '../domain/CustomerIdMother';
+import { InMemoryCustomerRepository } from '../../../../src/core/customer/infrastructure/InMemoryCustomerRepository';
+import { CustomerDetails, GetCustomerDetails } from '../../../../src/core/customer/application/GetCustomerDetails';
+import { CustomerMother } from '../domain/CustomerMother';
+import { Customer } from '../../../../src/core/customer/domain/Customer';
 
 describe('GetCustomerDetails should', () => {
 
@@ -28,7 +28,7 @@ describe('GetCustomerDetails should', () => {
         customerRepository = new InMemoryCustomerRepository();
 
         getCustomerDetails = new GetCustomerDetails(
-            customerRepository
+            customerRepository,
         );
     }
 

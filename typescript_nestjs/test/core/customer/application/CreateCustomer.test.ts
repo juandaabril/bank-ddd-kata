@@ -1,19 +1,22 @@
-import {CustomerId} from "../../../../src/core/customer/domain/CustomerId";
-import {CustomerRepository} from "../../../../src/core/customer/domain/CustomerRepository";
-import {CreateCustomer} from "../../../../src/core/customer/application/CreateCustomer";
-import {CustomerFirstName} from "../../../../src/core/customer/domain/CustomerFirstName";
-import {CustomerFirstNameMother} from "../domain/CustomerFirstNameMother";
-import {CustomerLastName} from "../../../../src/core/customer/domain/CustomerLastName";
-import {CustomerLastNameMother} from "../domain/CustomerLastNameMother";
-import {CustomerIdMother} from "../domain/CustomerIdMother";
-import {CustomerIdentificationMother} from "../domain/CustomerIdentificationMother";
-import {CustomerMobilePhoneMother} from "../domain/CustomerMobilePhoneMother";
-import {CustomerMobilePhone} from "../../../../src/core/customer/domain/CustomerMobilePhone";
-import {CustomerIdentification} from "../../../../src/core/customer/domain/CustomerIdentification";
-import {InMemoryCustomerRepository} from "../../../../src/core/customer/infrastructure/InMemoryCustomerRepository";
+import { CustomerId } from '../../../../src/core/customer/domain/CustomerId';
+import { CustomerRepository } from '../../../../src/core/customer/domain/CustomerRepository';
+import { CreateCustomer } from '../../../../src/core/customer/application/CreateCustomer';
+import { CustomerFirstName } from '../../../../src/core/customer/domain/CustomerFirstName';
+import { CustomerFirstNameMother } from '../domain/CustomerFirstNameMother';
+import { CustomerLastName } from '../../../../src/core/customer/domain/CustomerLastName';
+import { CustomerLastNameMother } from '../domain/CustomerLastNameMother';
+import { CustomerIdMother } from '../domain/CustomerIdMother';
+import { CustomerIdentificationMother } from '../domain/CustomerIdentificationMother';
+import { CustomerMobilePhoneMother } from '../domain/CustomerMobilePhoneMother';
+import { CustomerMobilePhone } from '../../../../src/core/customer/domain/CustomerMobilePhone';
+import { CustomerIdentification } from '../../../../src/core/customer/domain/CustomerIdentification';
+import { InMemoryCustomerRepository } from '../../../../src/core/customer/infrastructure/InMemoryCustomerRepository';
+import { EventBus } from '../../../../src/core/shared/bus/domain/EventBus';
+import { capture, instance, mock } from 'ts-mockito';
 
 describe('CreateCustomer should', () => {
 
+    let eventBus: EventBus;
     let customerRepository: CustomerRepository;
     let createCustomer: CreateCustomer;
 
@@ -29,17 +32,18 @@ describe('CreateCustomer should', () => {
         await when_customer_is_created(customerId, identification, firstName, lastName, mobilePhone);
 
         await then_the_customer_has_this_data(customerId, identification, firstName, lastName, mobilePhone);
+        await then_the_event_has_published();
     });
-
 
     function given_a_use_case() {
         customerRepository = new InMemoryCustomerRepository();
+        eventBus = mock<EventBus>()
 
         createCustomer = new CreateCustomer(
-            customerRepository
+            customerRepository,
+            instance<EventBus>(eventBus)
         );
     }
-
 
     async function when_customer_is_created(customerId: CustomerId, identification: CustomerIdentification, firstName: CustomerFirstName, lastName: CustomerLastName, mobilePhone: CustomerMobilePhone) {
         await createCustomer.execute(customerId, identification, firstName, lastName, mobilePhone);
@@ -56,4 +60,10 @@ describe('CreateCustomer should', () => {
         expect(customer.mobilePhone).toEqual(mobilePhone);
     }
 
+    async function then_the_event_has_published() {
+        const [events] = capture(eventBus.publish).last();
+
+        expect(events).not.toBeNull();
+        expect(events.length).toBe(1);
+    }
 });
