@@ -1,9 +1,8 @@
 import {AccountRepository} from "../domain/AccountRepository";
-import {AccountOpeningDate} from "../domain/AccountOpeningDate";
 import {Account} from '../domain/Account';
 import {AccountId} from "../domain/AccountId";
 import {CustomerId} from "../../customer/domain/CustomerId";
-import {DateService} from "../../shared/domain/DateService";
+import {DateService} from "../../shared/base/domain/DateService";
 
 export class RegisterNewAccount {
 
@@ -13,9 +12,7 @@ export class RegisterNewAccount {
     ) {}
 
     async execute(accountId: AccountId, customerId: CustomerId): Promise<void> {
-        const openingDate = AccountOpeningDate.fromDate(
-            await this.dateService.today()
-        );
+        const openingDate =  await this.dateService.today()
 
         const account = Account.create(
             accountId,

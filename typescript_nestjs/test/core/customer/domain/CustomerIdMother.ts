@@ -1,5 +1,5 @@
 import {CustomerId} from "../../../../src/core/customer/domain/CustomerId";
-import {UuidValueObjectMother} from "../../shared/domain/UuidValueObjectMother";
+import {UuidValueObjectMother} from "../../shared/base/domain/UuidValueObjectMother";
 
 export class CustomerIdMother {
 

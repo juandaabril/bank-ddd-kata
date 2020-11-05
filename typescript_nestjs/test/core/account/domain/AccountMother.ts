@@ -1,24 +1,32 @@
 import {Account} from "../../../../src/core/account/domain/Account";
 import {AccountIdMother} from "./AccountIdMother";
 import {CustomerIdMother} from "../../customer/domain/CustomerIdMother";
-import {DateValueObjectMother} from "../../shared/domain/DateValueObjectMother";
+import {DateValueObjectMother} from "../../shared/base/domain/DateValueObjectMother";
 import {DebitMother} from "./DebitMother";
 import {AccountStatus} from "../../../../src/core/account/domain/AccountStatus";
 import {AccountId} from "../../../../src/core/account/domain/AccountId";
 import {CustomerId} from "../../../../src/core/customer/domain/CustomerId";
 import {AccountOpeningDate} from "../../../../src/core/account/domain/AccountOpeningDate";
-import {Debit} from "../../../../src/core/account/domain/Debit";
-import {Credit} from "../../../../src/core/account/domain/Credit";
+import {Debit} from "../../../../src/core/transaction/domain/Debit";
+import {Credit} from "../../../../src/core/transaction/domain/Credit";
+import { MoneyValueObject } from '../../../../src/core/shared/base/domain/MoneyValueObject';
+import { DateValueObject } from '../../../../src/core/shared/base/domain/DateValueObject';
+
+type Options = {
+    accountId?: CustomerId,
+    customerId?: AccountId,
+    status?: AccountStatus,
+    openingDate?: DateValueObject,
+    balance?: MoneyValueObject
+};
 
 const DEFAULT_OPTIONS: Options = {
     accountId: AccountIdMother.random(),
     customerId: CustomerIdMother.random(),
     status: AccountStatus.OPEN,
     openingDate: DateValueObjectMother.random(),
-    debits: [],
-    credits: []
+    balance: new MoneyValueObject(0)
 };
-
 
 export class AccountMother {
 
@@ -28,21 +36,18 @@ export class AccountMother {
             CustomerIdMother.random(),
             AccountStatus.OPEN,
             DateValueObjectMother.random(),
-            [],
-            []
+            new MoneyValueObject(0)
         );
     }
 
-    static withThisDebit(value: number) {
+    static withThisBalance(value: number) {
         return new Account(
             AccountIdMother.random(),
             CustomerIdMother.random(),
             AccountStatus.OPEN,
             DateValueObjectMother.random(),
-            [DebitMother.withThisValue(value)],
-            []
+            new MoneyValueObject(value)
         );
-
     }
 
     static with(param: Options) {
@@ -56,18 +61,9 @@ export class AccountMother {
             options.customerId,
             options.status,
             options.openingDate,
-            options.debits,
-            options.credits
+            options.balance
         );
     }
 }
 
 
-type Options = {
-    accountId?: CustomerId,
-    customerId?: AccountId,
-    status?: AccountStatus,
-    openingDate?: AccountOpeningDate,
-    debits?: Debit[],
-    credits?: Credit[]
-};

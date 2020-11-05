@@ -1,4 +1,4 @@
-import {DateValueObject} from "../../../../src/core/shared/domain/DateValueObject";
+import {DateValueObject} from "../../../../../src/core/shared/base/domain/DateValueObject";
 
 const ANY_DATE = '01/01/2020';
 

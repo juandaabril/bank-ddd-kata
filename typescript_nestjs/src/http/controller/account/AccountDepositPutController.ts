@@ -3,7 +3,7 @@ import {RegisterNewAccount} from "../../../core/account/application/RegisterNewA
 import {AccountId} from "../../../core/account/domain/AccountId";
 import {CustomerId} from "../../../core/customer/domain/CustomerId";
 import {DepositFundsIntoAccount} from "../../../core/account/application/DepositFundsIntoAccount";
-import {Description} from "../../../core/account/domain/Description";
+import {Description} from "../../../core/transaction/domain/Description";
 import {Amount} from "../../../core/account/domain/Amount";
 
 export class Request {

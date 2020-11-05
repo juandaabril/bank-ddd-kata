@@ -1,7 +1,7 @@
 import {AccountRepository} from "../domain/AccountRepository";
 import {Account} from '../domain/Account';
 import {AccountId} from "../domain/AccountId";
-import {FirebaseClient} from "../../shared/infrastructure/FirebaseClient";
+import {FirebaseClient} from "../../shared/base/infrastructure/FirebaseClient";
 import {Injectable} from "@nestjs/common";
 import {AccountMapper} from "./AccountMapper";
 

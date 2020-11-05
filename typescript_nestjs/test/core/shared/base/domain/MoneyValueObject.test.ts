@@ -1,4 +1,4 @@
-import {MoneyValueObject} from "../../../../src/core/shared/domain/MoneyValueObject";
+import {MoneyValueObject} from "../../../../../src/core/shared/base/domain/MoneyValueObject";
 
 describe('MoneyValueObject should', () => {
 

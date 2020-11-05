@@ -1,5 +1,5 @@
 import {TransactionDate} from "./TransactionDate";
-import {Amount} from "./Amount";
+import {Amount} from "../../account/domain/Amount";
 import {Description} from "./Description";
 
 export class Transaction {

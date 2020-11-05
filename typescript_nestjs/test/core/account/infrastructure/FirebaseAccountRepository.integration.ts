@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
 import {FirebaseAccountRepository} from "../../../../src/core/account/infrastructure/FirebaseAccountRepository";
-import {FirebaseClient} from "../../../../src/core/shared/infrastructure/FirebaseClient";
+import {FirebaseClient} from "../../../../src/core/shared/base/infrastructure/FirebaseClient";
 import {AccountMother} from "../domain/AccountMother";
 import {ConfigModule} from "@nestjs/config";
 

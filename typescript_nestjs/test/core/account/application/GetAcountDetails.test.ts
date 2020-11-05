@@ -13,7 +13,7 @@ describe('GetAccountDetails should', () => {
     let accountDetails: AccountDetails;
 
     test('get the account details', async () => {
-        const account = AccountMother.withThisDebit(1000);
+        const account = AccountMother.withThisBalance(1000);
 
         given_a_use_case();
         await and_a_account_whit_this_data(account);

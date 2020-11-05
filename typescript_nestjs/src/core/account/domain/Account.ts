@@ -1,74 +1,63 @@
-import {AccountOpeningDate} from "./AccountOpeningDate";
-import {AccountId} from "./AccountId";
-import {CustomerId} from "../../customer/domain/CustomerId";
-import {Amount} from "./Amount";
-import {TransactionDate} from "./TransactionDate";
-import {Debit} from "./Debit";
-import {Description} from "./Description";
-import {Credit} from "./Credit";
-import {AccountStatus} from "./AccountStatus";
-import {RuntimeError} from "../../shared/domain/RuntimeError";
+import { AccountId } from './AccountId';
+import { CustomerId } from '../../customer/domain/CustomerId';
+import { Debit } from '../../transaction/domain/Debit';
+import { Description } from '../../transaction/domain/Description';
+import { Credit } from '../../transaction/domain/Credit';
+import { AccountStatus } from './AccountStatus';
+import { RuntimeError } from '../../shared/base/domain/RuntimeError';
+import { DateValueObject } from '../../shared/base/domain/DateValueObject';
+import { MoneyValueObject } from '../../shared/base/domain/MoneyValueObject';
 
 export class Account {
     private _id: AccountId;
     private _customerId: CustomerId;
-    private _openingDate: AccountOpeningDate;
     private _status: AccountStatus;
-    private _debits: Debit[];
-    private _credits: Credit[];
+    private _openingDate: DateValueObject;
+    private _balance: MoneyValueObject;
 
-    constructor(id: AccountId, customerId: CustomerId, status: AccountStatus, openingDate: AccountOpeningDate, debits: Debit[], credits: Credit[]) {
+    constructor(id: AccountId, customerId: CustomerId, status: AccountStatus, openingDate: DateValueObject, balance: MoneyValueObject) {
         this._id = id;
         this._status = status;
         this._customerId = customerId;
         this._openingDate = openingDate;
-        this._debits = debits;
-        this._credits = credits;
+        this._balance = balance;
     }
 
-    static create(accountId: AccountId, customerId: CustomerId, openingDate: AccountOpeningDate): Account {
+    static create(accountId: AccountId, customerId: CustomerId, openingDate: DateValueObject): Account {
         return new Account(
             accountId,
             customerId,
             AccountStatus.OPEN,
             openingDate,
-            [],
-            []
+            new MoneyValueObject(0),
         );
     }
 
-    deposit(description: Description, amount: Amount, transactionDate: TransactionDate): void {
+    deposit(description: Description, amount: MoneyValueObject, transactionDate: DateValueObject): void {
         const debit = Debit.create(description, amount, transactionDate);
-        this._debits.push(debit);
+
+        this._balance = this.balance.add(amount);
     }
 
-    withdraw(description: Description, amount: Amount, transactionDate: TransactionDate) {
-        if (this.balance - amount.value < 0) {
+    withdraw(description: Description, amount: MoneyValueObject, transactionDate: DateValueObject) {
+        if (this.balance.value - amount.value < 0) {
             throw new WithdrawWithInsufficientBalance();
         }
 
         const credit = Credit.create(description, amount, transactionDate);
-        this._credits.push(credit);
+        //this._credits.push(credit);
     }
 
     close() {
-        if (this.balance !== 0) {
+        if (this.balance.value !== 0) {
             throw new AccountCannotBeClosedWithExistingFunds();
         }
 
         this._status = AccountStatus.CLOSED;
     }
 
-    get balance(): number {
-        const totalDebits = this._debits
-            .map((debit) => debit.amount.value)
-            .reduce((prev, current) => prev + current, 0);
-
-        const totalCredits = this._credits
-            .map((credit) => credit.amount.value)
-            .reduce((prev, current) => prev + current, 0);
-
-        return totalDebits - totalCredits;
+    get balance(): MoneyValueObject {
+        return this._balance;
     }
 
     get id(): AccountId {
@@ -83,19 +72,13 @@ export class Account {
         return this._status;
     }
 
-    get openingDate(): AccountOpeningDate {
+    get openingDate(): DateValueObject {
         return this._openingDate;
-    }
-
-    get debits(): Debit[] {
-        return this._debits;
-    }
-
-    get credits(): Credit[] {
-        return this._credits;
     }
 }
 
-export class AccountCannotBeClosedWithExistingFunds extends RuntimeError {}
+export class AccountCannotBeClosedWithExistingFunds extends RuntimeError {
+}
 
-export class WithdrawWithInsufficientBalance extends RuntimeError {}
+export class WithdrawWithInsufficientBalance extends RuntimeError {
+}

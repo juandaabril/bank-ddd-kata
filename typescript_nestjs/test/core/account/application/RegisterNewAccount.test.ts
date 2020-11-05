@@ -1,14 +1,16 @@
-import {instance, mock, when} from "ts-mockito";
-import {DateService} from "../../../../src/core/shared/domain/DateService";
-import {DateValueObject} from "../../../../src/core/shared/domain/DateValueObject";
-import {DateValueObjectMother} from "../../shared/domain/DateValueObjectMother";
-import {AccountRepository} from "../../../../src/core/account/domain/AccountRepository";
-import {RegisterNewAccount} from "../../../../src/core/account/application/RegisterNewAccount";
-import {CustomerIdMother} from "../../customer/domain/CustomerIdMother";
-import {AccountIdMother} from "../domain/AccountIdMother";
-import {AccountId} from "../../../../src/core/account/domain/AccountId";
-import {CustomerId} from "../../../../src/core/customer/domain/CustomerId";
-import {InMemoryAccountRepository} from "../../../../src/core/account/infrastructure/InMemoryAccountRepository";
+import { instance, mock, when } from 'ts-mockito';
+import { DateService } from '../../../../src/core/shared/base/domain/DateService';
+import { DateValueObjectMother } from '../../shared/base/domain/DateValueObjectMother';
+import { AccountRepository } from '../../../../src/core/account/domain/AccountRepository';
+import { RegisterNewAccount } from '../../../../src/core/account/application/RegisterNewAccount';
+import { CustomerIdMother } from '../../customer/domain/CustomerIdMother';
+import { AccountIdMother } from '../domain/AccountIdMother';
+import { AccountId } from '../../../../src/core/account/domain/AccountId';
+import { CustomerId } from '../../../../src/core/customer/domain/CustomerId';
+import { InMemoryAccountRepository } from '../../../../src/core/account/infrastructure/InMemoryAccountRepository';
+import { DateValueObject } from '../../../../src/core/shared/base/domain/DateValueObject';
+import { MoneyValueObject } from '../../../../src/core/shared/base/domain/MoneyValueObject';
+import { AccountStatus } from '../../../../src/core/account/domain/AccountStatus';
 
 describe('RegisterNewAccount should', () => {
 
@@ -35,7 +37,7 @@ describe('RegisterNewAccount should', () => {
 
         registerNewAccount = new RegisterNewAccount(
             accountRepository,
-            instance(dateService)
+            instance(dateService),
         );
     }
 
@@ -47,12 +49,14 @@ describe('RegisterNewAccount should', () => {
         await registerNewAccount.execute(accountId, customerId);
     }
 
-    async function then_store_method_was_called_with(accountId: AccountId, customerId: CustomerId, dateValueObject: DateValueObject){
+    async function then_store_method_was_called_with(accountId: AccountId, customerId: CustomerId, dateValueObject: DateValueObject) {
         const account = await accountRepository.findById(accountId);
 
         expect(account).not.toBeNull();
         expect(account.id).toStrictEqual(accountId);
         expect(account.customerId).toStrictEqual(customerId);
-        expect(account.openingDate.value).toBe(dateValueObject.value);
+        expect(account.openingDate).toBeEquals(dateValueObject);
+        expect(account.balance).toBeEquals(new MoneyValueObject(0));
+        expect(account.status).toBe(AccountStatus.OPEN);
     }
 });

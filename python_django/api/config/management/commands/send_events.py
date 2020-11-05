@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from core.shared.bus.infrastructure import EventStoreModel
+from core.shared.bus.infrastructure.django_event_store_repository import EventStoreModel
 
 
 class Command(BaseCommand):

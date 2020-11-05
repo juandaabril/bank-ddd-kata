@@ -1,17 +1,17 @@
-import {instance, mock, when} from "ts-mockito";
-import {DateService} from "../../../../src/core/shared/domain/DateService";
-import {DateValueObject} from "../../../../src/core/shared/domain/DateValueObject";
-import {DateValueObjectMother} from "../../shared/domain/DateValueObjectMother";
-import {AccountMother} from "../domain/AccountMother";
-import {AccountRepository} from "../../../../src/core/account/domain/AccountRepository";
-import {Account} from "../../../../src/core/account/domain/Account";
-import {DepositFundsIntoAccount} from "../../../../src/core/account/application/DepositFundsIntoAccount";
-import {AccountId} from "../../../../src/core/account/domain/AccountId";
-import {CustomerId} from "../../../../src/core/customer/domain/CustomerId";
-import {Amount} from "../../../../src/core/account/domain/Amount";
-import {DescriptionMother} from "../domain/DescriptionMother";
-import {Description} from "../../../../src/core/account/domain/Description";
-import {InMemoryAccountRepository} from "../../../../src/core/account/infrastructure/InMemoryAccountRepository";
+import { instance, mock, when } from 'ts-mockito';
+import { DateService } from '../../../../src/core/shared/base/domain/DateService';
+import { DateValueObjectMother } from '../../shared/base/domain/DateValueObjectMother';
+import { AccountMother } from '../domain/AccountMother';
+import { AccountRepository } from '../../../../src/core/account/domain/AccountRepository';
+import { Account } from '../../../../src/core/account/domain/Account';
+import { DepositFundsIntoAccount } from '../../../../src/core/account/application/DepositFundsIntoAccount';
+import { AccountId } from '../../../../src/core/account/domain/AccountId';
+import { CustomerId } from '../../../../src/core/customer/domain/CustomerId';
+import { DescriptionMother } from '../domain/DescriptionMother';
+import { Description } from '../../../../src/core/transaction/domain/Description';
+import { InMemoryAccountRepository } from '../../../../src/core/account/infrastructure/InMemoryAccountRepository';
+import { DateValueObject } from '../../../../src/core/shared/base/domain/DateValueObject';
+import { MoneyValueObject } from '../../../../src/core/shared/base/domain/MoneyValueObject';
 
 describe('DepositFundsIntoAccount should', () => {
 
@@ -23,7 +23,7 @@ describe('DepositFundsIntoAccount should', () => {
         const account = AccountMother.withZeroBalance();
         const transactionDate = DateValueObjectMother.random();
         const description = DescriptionMother.random();
-        const amount = new Amount(100);
+        const amount = new MoneyValueObject(100);
 
         given_a_use_case();
         and_a_date_with_this_value(transactionDate);
@@ -40,7 +40,7 @@ describe('DepositFundsIntoAccount should', () => {
 
         depositFundsIntoAccount = new DepositFundsIntoAccount(
             accountRepository,
-            instance(dateService)
+            instance(dateService),
         );
     }
 
@@ -52,19 +52,16 @@ describe('DepositFundsIntoAccount should', () => {
         await accountRepository.store(account);
     }
 
-    async function when_a_deposit_is_make(accountId: AccountId, customerId: CustomerId, description: Description, amount: Amount) {
+    async function when_a_deposit_is_make(accountId: AccountId, customerId: CustomerId, description: Description, amount: MoneyValueObject) {
         await depositFundsIntoAccount.execute(accountId, customerId, description, amount);
     }
 
-    async function then_the_accounts_has_this_data(accountId: AccountId, customerId: CustomerId, description: Description, amount: Amount, transactionDate: DateValueObject) {
+    async function then_the_accounts_has_this_data(accountId: AccountId, customerId: CustomerId, description: Description, amount: MoneyValueObject, transactionDate: DateValueObject) {
         const account = await accountRepository.findById(accountId);
 
         expect(account).not.toBeNull();
         expect(account.id).toStrictEqual(accountId);
         expect(account.customerId).toStrictEqual(customerId);
-        expect(account.debits.length).toBe(1);
-        expect(account.debits[0].description).toStrictEqual(description);
-        expect(account.debits[0].amount).toStrictEqual(amount);
-        expect(account.debits[0].transactionDate.value).toBe(transactionDate.value);
+        expect(account.balance).toBeEquals(amount);
     }
 });

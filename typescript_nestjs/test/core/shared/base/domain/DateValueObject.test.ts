@@ -1,4 +1,4 @@
-import {DateValueObject} from "../../../../src/core/shared/domain/DateValueObject";
+import {DateValueObject} from "../../../../../src/core/shared/base/domain/DateValueObject";
 
 describe('DateValueObject', () => {
 
@@ -16,7 +16,6 @@ describe('DateValueObject', () => {
 
         const dateValueObjectA = DateValueObject.fromString(date);
         const dateValueObjectB = DateValueObject.fromString(date);
-
 
         expect(dateValueObjectA).toEqual(dateValueObjectB);
     });

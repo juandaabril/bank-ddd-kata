@@ -1,3 +1,5 @@
-import {ValueObject} from "../../shared/domain/ValueObject";
+import {StringValueObject} from "../../shared/base/domain/StringValueObject";
 
-export class CustomerFirstName extends ValueObject<string> {}
+export class CustomerFirstName extends StringValueObject {
+
+}

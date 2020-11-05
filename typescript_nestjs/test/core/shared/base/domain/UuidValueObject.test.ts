@@ -1,5 +1,5 @@
-import {InvalidUuidError, UuidValueObject} from "../../../../src/core/shared/domain/UuidValueObject";
 import {UuidValueObjectMother} from "./UuidValueObjectMother";
+import {InvalidUuidError, UuidValueObject} from "../../../../../src/core/shared/base/domain/UuidValueObject";
 
 describe('Uuid', () => {
 

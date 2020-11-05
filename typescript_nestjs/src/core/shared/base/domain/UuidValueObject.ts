@@ -1,15 +1,15 @@
 import * as validate from 'uuid-validate';
+import {StringValueObject} from "./StringValueObject";
 import {RuntimeError} from "./RuntimeError";
-import {ValueObject} from "./ValueObject";
 
-export class UuidValueObject extends ValueObject<string> {
+export class UuidValueObject extends StringValueObject {
 
     constructor(value: string) {
         super(value);
-        this.ensureIsValidUuid(value);
+        this.ensureValidUuid(value);
     }
 
-    private ensureIsValidUuid(id: string): void {
+    private ensureValidUuid(id: string): void {
         if (!validate(id, 4)) {
             throw new InvalidUuidError(`<${id}> is an invalid UUID <${this.constructor.name}>`);
         }

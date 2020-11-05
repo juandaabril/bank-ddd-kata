@@ -3,7 +3,7 @@ import {CloseAccount} from "../../core/account/application/CloseAccount";
 import {DepositFundsIntoAccount} from "../../core/account/application/DepositFundsIntoAccount";
 import {RegisterNewAccount} from "../../core/account/application/RegisterNewAccount";
 import {AccountRepository} from "../../core/account/domain/AccountRepository";
-import {DateService} from "../../core/shared/domain/DateService";
+import {DateService} from "../../core/shared/base/domain/DateService";
 import {FirebaseAccountRepository} from "../../core/account/infrastructure/FirebaseAccountRepository";
 import {GetAccountDetails} from "../../core/account/infrastructure/GetAccountDetails";
 

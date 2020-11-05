@@ -1,8 +1,8 @@
 import {AccountId} from "../domain/AccountId";
 import {AccountRepository} from "../domain/AccountRepository";
 import {CustomerId} from "../../customer/domain/CustomerId";
-import {Debit} from "../domain/Debit";
-import {Credit} from "../domain/Credit";
+import {Debit} from "../../transaction/domain/Debit";
+import {Credit} from "../../transaction/domain/Credit";
 
 export class GetAccountDetails {
     constructor(private accountRepository: AccountRepository) {

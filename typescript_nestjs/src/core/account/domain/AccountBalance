@@ -1,0 +1,3 @@
+import {MoneyValueObject} from "../../shared/base/domain/MoneyValueObject";
+
+export class AccountBalance extends MoneyValueObject {}

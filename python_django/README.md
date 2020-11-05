@@ -13,6 +13,3 @@ This project was designed do cover the following use cases and requirements:
 
 `Copy from https://github.com/ivanpaulovich/ddd-tdd-rich-domain-model-dojo-kata`
 
-## Projects
-+ [typescript_nestjs](typescript_nestjs/README.md)
-+ [python_django](python_django/README.md)

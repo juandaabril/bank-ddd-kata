@@ -2,9 +2,9 @@ import {AccountRepository} from "../domain/AccountRepository";
 import {AccountId} from "../domain/AccountId";
 import {CustomerId} from "../../customer/domain/CustomerId";
 import {Amount} from "../domain/Amount";
-import {TransactionDate} from "../domain/TransactionDate";
-import {Description} from "../domain/Description";
-import {DateService} from "../../shared/domain/DateService";
+import {TransactionDate} from "../../transaction/domain/TransactionDate";
+import {Description} from "../../transaction/domain/Description";
+import {DateService} from "../../shared/base/domain/DateService";
 
 export class WithdrawFundsFromAccount {
     constructor(

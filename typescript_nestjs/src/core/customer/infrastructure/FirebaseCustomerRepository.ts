@@ -2,7 +2,7 @@ import {Injectable} from "@nestjs/common";
 import {CustomerRepository} from "../domain/CustomerRepository";
 import {CustomerId} from "../domain/CustomerId";
 import {Customer} from "../domain/Customer";
-import {FirebaseClient} from "../../shared/infrastructure/FirebaseClient";
+import {FirebaseClient} from "../../shared/base/infrastructure/FirebaseClient";
 import {CustomerMapper} from "./CustomerMapper";
 
 @Injectable()

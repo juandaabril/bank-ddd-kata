@@ -1,7 +1,7 @@
 import {Test, TestingModule} from '@nestjs/testing';
 import {INestApplication} from '@nestjs/common';
 import * as request from 'supertest';
-import {MainModule} from "../../../../src/api/modules/MainModule";
+import {MainModule} from "../../../../src/http/modules/MainModule";
 
 describe('CustomerGetController (acceptance)', () => {
     let app: INestApplication;

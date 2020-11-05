@@ -1,13 +1,13 @@
 import {Account} from "../domain/Account";
-import {Debit} from "../domain/Debit";
-import {Credit} from "../domain/Credit";
+import {Debit} from "../../transaction/domain/Debit";
+import {Credit} from "../../transaction/domain/Credit";
 import {AccountId} from "../domain/AccountId";
 import {CustomerId} from "../../customer/domain/CustomerId";
 import {AccountStatus} from "../domain/AccountStatus";
 import {AccountOpeningDate} from "../domain/AccountOpeningDate";
-import {Description} from "../domain/Description";
+import {Description} from "../../transaction/domain/Description";
 import {Amount} from "../domain/Amount";
-import {TransactionDate} from "../domain/TransactionDate";
+import {TransactionDate} from "../../transaction/domain/TransactionDate";
 import {DateValueObject} from "../../shared/domain/DateValueObject";
 
 export class AccountMapper {

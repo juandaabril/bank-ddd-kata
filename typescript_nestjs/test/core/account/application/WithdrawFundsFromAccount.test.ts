@@ -1,22 +1,21 @@
-import {instance, mock, when} from "ts-mockito";
-import {DateService} from "../../../../src/core/shared/domain/DateService";
-import {DateValueObject} from "../../../../src/core/shared/domain/DateValueObject";
-import {DateValueObjectMother} from "../../shared/domain/DateValueObjectMother";
-import {AccountMother} from "../domain/AccountMother";
-import {AccountRepository} from "../../../../src/core/account/domain/AccountRepository";
+import { instance, mock, when } from 'ts-mockito';
+import { DateService } from '../../../../src/core/shared/base/domain/DateService';
+import { DateValueObjectMother } from '../../shared/base/domain/DateValueObjectMother';
+import { AccountMother } from '../domain/AccountMother';
+import { AccountRepository } from '../../../../src/core/account/domain/AccountRepository';
 import {
     Account,
-    AccountCannotBeClosedWithExistingFunds,
-    WithdrawWithInsufficientBalance
-} from "../../../../src/core/account/domain/Account";
-import {DepositFundsIntoAccount} from "../../../../src/core/account/application/DepositFundsIntoAccount";
-import {AccountId} from "../../../../src/core/account/domain/AccountId";
-import {CustomerId} from "../../../../src/core/customer/domain/CustomerId";
-import {Amount} from "../../../../src/core/account/domain/Amount";
-import {DescriptionMother} from "../domain/DescriptionMother";
-import {Description} from "../../../../src/core/account/domain/Description";
-import {InMemoryAccountRepository} from "../../../../src/core/account/infrastructure/InMemoryAccountRepository";
-import {WithdrawFundsFromAccount} from "../../../../src/core/account/application/WithdrawFundsFromAccount";
+    WithdrawWithInsufficientBalance,
+} from '../../../../src/core/account/domain/Account';
+import { AccountId } from '../../../../src/core/account/domain/AccountId';
+import { CustomerId } from '../../../../src/core/customer/domain/CustomerId';
+import { Amount } from '../../../../src/core/account/domain/Amount';
+import { DescriptionMother } from '../domain/DescriptionMother';
+import { Description } from '../../../../src/core/transaction/domain/Description';
+import { InMemoryAccountRepository } from '../../../../src/core/account/infrastructure/InMemoryAccountRepository';
+import { WithdrawFundsFromAccount } from '../../../../src/core/account/application/WithdrawFundsFromAccount';
+import { MoneyValueObject } from '../../../../src/core/shared/base/domain/MoneyValueObject';
+import { DateValueObject } from '../../../../src/core/shared/base/domain/DateValueObject';
 
 describe('WithdrawFundsFromAccount should', () => {
 
@@ -26,10 +25,10 @@ describe('WithdrawFundsFromAccount should', () => {
     let executor: () => void;
 
     test('add a credit into the account', async () => {
-        const account = AccountMother.withThisDebit(1000);
+        const account = AccountMother.withThisBalance(1000);
         const transactionDate = DateValueObjectMother.random();
         const description = DescriptionMother.random();
-        const amount = new Amount(100);
+        const amount = new MoneyValueObject(100);
 
         given_a_use_case();
         and_a_date_with_this_value(transactionDate);
@@ -41,10 +40,10 @@ describe('WithdrawFundsFromAccount should', () => {
     });
 
     test('do not allow the Customer to Withdraw more than the existing funds', async () => {
-        const account = AccountMother.withThisDebit(1000);
+        const account = AccountMother.withThisBalance(1000);
         const transactionDate = DateValueObjectMother.random();
         const description = DescriptionMother.random();
-        const amount = new Amount(1001);
+        const amount = new MoneyValueObject(100);
 
         given_a_use_case();
         and_a_date_with_this_value(transactionDate);
@@ -62,7 +61,7 @@ describe('WithdrawFundsFromAccount should', () => {
 
         withdrawFundsFromAccount = new WithdrawFundsFromAccount(
             accountRepository,
-            instance(dateService)
+            instance(dateService),
         );
     }
 
@@ -84,6 +83,7 @@ describe('WithdrawFundsFromAccount should', () => {
             await withdrawFundsFromAccount.execute(accountId, customerId, description, amount);
         };
     }
+
     async function then_the_accounts_has_this_data(accountId: AccountId, customerId: CustomerId, description: Description, amount: Amount, transactionDate: DateValueObject) {
         const account = await accountRepository.findById(accountId);
 
