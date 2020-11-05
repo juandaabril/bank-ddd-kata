@@ -14,4 +14,8 @@ export class DomainEvent {
     get occurredOn(): string {
         return this._occurredOn;
     }
+
+    toPrimitives() {
+        return undefined;
+    }
 }

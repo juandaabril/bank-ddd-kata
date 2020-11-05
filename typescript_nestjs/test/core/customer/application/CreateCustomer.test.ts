@@ -65,5 +65,6 @@ describe('CreateCustomer should', () => {
 
         expect(events).not.toBeNull();
         expect(events.length).toBe(1);
+        expect(events[0].toPrimitives()).toBe(1);
     }
 });
