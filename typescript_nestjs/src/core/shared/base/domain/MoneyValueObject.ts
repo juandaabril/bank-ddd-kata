@@ -7,9 +7,13 @@ export class MoneyValueObject extends NumberValueObject {
         )
     }
 
-    subtract(amount: MoneyValueObject) {
+    subtract(amount: MoneyValueObject): MoneyValueObject {
         return new MoneyValueObject(
             this.value - amount.value
         )
+    }
+
+    static fromString(balance: string): MoneyValueObject {
+        return new MoneyValueObject(0);
     }
 }

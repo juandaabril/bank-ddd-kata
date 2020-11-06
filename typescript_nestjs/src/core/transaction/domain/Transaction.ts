@@ -1,23 +1,23 @@
-import {TransactionDate} from "./TransactionDate";
-import {Amount} from "../../account/domain/Amount";
 import {Description} from "./Description";
+import { DateValueObject } from '../../shared/base/domain/DateValueObject';
+import { MoneyValueObject } from '../../shared/base/domain/MoneyValueObject';
 
 export class Transaction {
     private _description: Description;
-    private _amount: Amount;
-    private _transactionDate: TransactionDate;
+    private _amount: MoneyValueObject;
+    private _transactionDate: DateValueObject;
 
-    constructor(description: Description, amount: Amount, transactionDate: TransactionDate) {
+    constructor(description: Description, amount: MoneyValueObject, transactionDate: DateValueObject) {
         this._transactionDate = transactionDate;
         this._amount = amount;
         this._description = description;
     }
 
-    get transactionDate(): TransactionDate {
+    get transactionDate(): DateValueObject {
         return this._transactionDate;
     }
 
-    get amount(): Amount {
+    get amount(): MoneyValueObject {
         return this._amount;
     }
 

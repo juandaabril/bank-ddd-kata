@@ -1,17 +1,24 @@
-import {Global, Module} from "@nestjs/common";
-import {LocalDateService} from "../../core/shared/base/infrastructure/LocalDateService";
-import {DateService} from "../../core/shared/base/domain/DateService";
-import {FirebaseClient} from "../../core/shared/base/infrastructure/FirebaseClient";
+import { Global, Module } from '@nestjs/common';
+import { LocalDateService } from '../../core/shared/base/infrastructure/LocalDateService';
+import { DateService } from '../../core/shared/base/domain/DateService';
+import { FirebaseClient } from '../../core/shared/base/infrastructure/FirebaseClient';
+import { RabbitMQEventBus } from 'src/core/shared/bus/infrastructure/RabbitMQEventBus';
+
+const EventBus = { provide: 'EventBus', useClass: RabbitMQEventBus };
+const DateService = { provide: 'DateService', useClass: LocalDateService };
 
 @Global()
 @Module({
     providers: [
         FirebaseClient,
-        {provide: 'DateService', useClass: LocalDateService},
+        EventBus,
+        DateService,
     ],
     exports: [
         FirebaseClient,
-        {provide: 'DateService', useClass: LocalDateService},
+        EventBus,
+        DateService,
     ],
 })
-export class SharedModule {}
+export class SharedModule {
+}

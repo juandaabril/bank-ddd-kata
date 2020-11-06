@@ -1,7 +1,7 @@
-import {Body, Controller, Post} from '@nestjs/common';
-import {RegisterNewAccount} from "../../../core/account/application/RegisterNewAccount";
-import {AccountId} from "../../../core/account/domain/AccountId";
-import {CustomerId} from "../../../core/customer/domain/CustomerId";
+import { Body, Controller, Post } from '@nestjs/common';
+import { RegisterNewAccount } from '../../../core/account/application/RegisterNewAccount';
+import { AccountId } from '../../../core/account/domain/AccountId';
+import { CustomerId } from '../../../core/customer/domain/CustomerId';
 
 export class Request {
     accountId: string;
@@ -11,7 +11,7 @@ export class Request {
 @Controller('/account')
 export class AccountPostController {
     constructor(
-        private registerANewAccount: RegisterNewAccount
+        private registerANewAccount: RegisterNewAccount,
     ) {
     }
 
@@ -22,7 +22,7 @@ export class AccountPostController {
 
         return this.registerANewAccount.execute(
             accountId,
-            customerId
+            customerId,
         );
     }
 }

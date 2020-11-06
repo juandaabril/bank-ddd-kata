@@ -1,12 +1,12 @@
-import {Controller, Get, Param} from '@nestjs/common';
-import {CustomerId} from "../../../core/customer/domain/CustomerId";
-import {AccountDetails, GetAccountDetails} from "../../../core/account/infrastructure/GetAccountDetails";
-import {AccountId} from "../../../core/account/domain/AccountId";
+import { Controller, Get, Param } from '@nestjs/common';
+import { CustomerId } from '../../../core/customer/domain/CustomerId';
+import { AccountDetails, GetAccountDetails } from '../../../core/account/infrastructure/GetAccountDetails';
+import { AccountId } from '../../../core/account/domain/AccountId';
 
 @Controller('/account')
 export class AccountGetController {
     constructor(
-        private getAccountDetails: GetAccountDetails
+        private getAccountDetails: GetAccountDetails,
     ) {
     }
 
@@ -17,7 +17,7 @@ export class AccountGetController {
 
         return this.getAccountDetails.execute(
             accountId,
-            customerId
+            customerId,
         );
     }
 }

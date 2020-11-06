@@ -1,10 +1,9 @@
-import {Body, Controller, Post, Put} from '@nestjs/common';
-import {RegisterNewAccount} from "../../../core/account/application/RegisterNewAccount";
-import {AccountId} from "../../../core/account/domain/AccountId";
-import {CustomerId} from "../../../core/customer/domain/CustomerId";
-import {DepositFundsIntoAccount} from "../../../core/account/application/DepositFundsIntoAccount";
-import {Description} from "../../../core/transaction/domain/Description";
-import {Amount} from "../../../core/account/domain/Amount";
+import { Body, Controller, Post, Put } from '@nestjs/common';
+import { AccountId } from '../../../core/account/domain/AccountId';
+import { CustomerId } from '../../../core/customer/domain/CustomerId';
+import { DepositFundsIntoAccount } from '../../../core/account/application/DepositFundsIntoAccount';
+import { Description } from '../../../core/transaction/domain/Description';
+import { MoneyValueObject } from '../../../core/shared/base/domain/MoneyValueObject';
 
 export class Request {
     accountId: string;
@@ -16,7 +15,7 @@ export class Request {
 @Controller('/account/deposit')
 export class AccountDepositPutController {
     constructor(
-        private depositFundsIntoAccount: DepositFundsIntoAccount
+        private depositFundsIntoAccount: DepositFundsIntoAccount,
     ) {
     }
 
@@ -25,13 +24,13 @@ export class AccountDepositPutController {
         const accountId = new AccountId(request.accountId);
         const customerId = new CustomerId(request.customerId);
         const description = new Description(request.description);
-        const amount = new Amount(request.amount);
+        const amount = new MoneyValueObject(request.amount);
 
         return this.depositFundsIntoAccount.execute(
             accountId,
             customerId,
             description,
-            amount
+            amount,
         );
     }
 }

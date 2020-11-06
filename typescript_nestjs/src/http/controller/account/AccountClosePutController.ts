@@ -1,11 +1,11 @@
-import {Body, Controller, HttpStatus, Put} from '@nestjs/common';
-import {AccountId} from "../../../core/account/domain/AccountId";
-import {CustomerId} from "../../../core/customer/domain/CustomerId";
-import {CloseAccount} from "../../../core/account/application/CloseAccount";
+import { Body, Controller, HttpStatus, Put } from '@nestjs/common';
+import { AccountId } from '../../../core/account/domain/AccountId';
+import { CustomerId } from '../../../core/customer/domain/CustomerId';
+import { CloseAccount } from '../../../core/account/application/CloseAccount';
 import {
-    setErrorHandling
-} from "../../filters/HttpExceptionFilter";
-import {AccountCannotBeClosedWithExistingFunds} from "../../../core/account/domain/Account";
+    setErrorHandling,
+} from '../../filters/HttpExceptionFilter';
+import { AccountCannotBeClosedWithExistingFunds } from '../../../core/account/domain/Account';
 
 export class Request {
     accountId: string;
@@ -18,12 +18,12 @@ export class Request {
     {
         type: AccountCannotBeClosedWithExistingFunds,
         code: HttpStatus.INTERNAL_SERVER_ERROR,
-        msg: 'AccountCannotBeClosedWithExistingFunds'
-    }
+        msg: 'AccountCannotBeClosedWithExistingFunds',
+    },
 ])
 export class AccountClosePutController {
     constructor(
-        private closeAccount: CloseAccount
+        private closeAccount: CloseAccount,
     ) {
     }
 
@@ -34,7 +34,7 @@ export class AccountClosePutController {
 
         return this.closeAccount.execute(
             accountId,
-            customerId
+            customerId,
         );
     }
 }
