@@ -1,8 +1,6 @@
 import { AccountId } from './AccountId';
 import { CustomerId } from '../../customer/domain/CustomerId';
-import { Debit } from '../../transaction/domain/Debit';
 import { Description } from '../../transaction/domain/Description';
-import { Credit } from '../../transaction/domain/Credit';
 import { AccountStatus } from './AccountStatus';
 import { RuntimeError } from '../../shared/base/domain/RuntimeError';
 import { DateValueObject } from '../../shared/base/domain/DateValueObject';
@@ -34,8 +32,6 @@ export class Account {
     }
 
     deposit(description: Description, amount: MoneyValueObject, transactionDate: DateValueObject): void {
-        const debit = Debit.create(description, amount, transactionDate);
-
         this._balance = this.balance.add(amount);
     }
 

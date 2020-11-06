@@ -1,10 +1,10 @@
-import {Body, Controller, Post} from '@nestjs/common';
-import {CustomerId} from "../../../core/customer/domain/CustomerId";
-import {CreateCustomer} from "../../../core/customer/application/CreateCustomer";
-import {CustomerIdentification} from "../../../core/customer/domain/CustomerIdentification";
-import {CustomerFirstName} from "../../../core/customer/domain/CustomerFirstName";
-import {CustomerLastName} from "../../../core/customer/domain/CustomerLastName";
-import {CustomerMobilePhone} from "../../../core/customer/domain/CustomerMobilePhone";
+import { Body, Controller, Post } from '@nestjs/common';
+import { CustomerId } from '../../../core/customer/domain/CustomerId';
+import { CreateCustomer } from '../../../core/customer/application/CreateCustomer';
+import { CustomerIdentification } from '../../../core/customer/domain/CustomerIdentification';
+import { CustomerFirstName } from '../../../core/customer/domain/CustomerFirstName';
+import { CustomerLastName } from '../../../core/customer/domain/CustomerLastName';
+import { CustomerMobilePhone } from '../../../core/customer/domain/CustomerMobilePhone';
 
 export class Request {
     customerId: string;
@@ -17,12 +17,13 @@ export class Request {
 @Controller('/customer')
 export class CustomerPostController {
     constructor(
-        private createCustomer: CreateCustomer
+        private createCustomer: CreateCustomer,
     ) {
     }
 
     @Post()
     run(@Body() request: Request): Promise<void> {
+        console.log(request);
         const customerId = new CustomerId(request.customerId);
         const identification = new CustomerIdentification(request.identification);
         const firstName = new CustomerFirstName(request.firstName);
@@ -34,7 +35,7 @@ export class CustomerPostController {
             identification,
             firstName,
             lastName,
-            mobilePhone
+            mobilePhone,
         );
     }
 }
