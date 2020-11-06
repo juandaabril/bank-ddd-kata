@@ -1,7 +1,8 @@
-import {Test, TestingModule} from '@nestjs/testing';
-import {INestApplication} from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import {MainModule} from "../../../../src/http/modules/MainModule";
+import { MainModule } from '../../../../src/http/modules/MainModule';
+import { AccountMother } from '../../../core/account/domain/AccountMother';
 
 describe('AccountPostController (e2e)', () => {
     let app: INestApplication;
@@ -16,9 +17,12 @@ describe('AccountPostController (e2e)', () => {
     });
 
     test('/account', () => {
+        const account = AccountMother.withZeroBalance();
+
+
         return request(app.getHttpServer())
             .post('/account')
-            .send({accountId: '5', customerId: '3'})
+            .send({ accountId: account.id.value, customerId: account.customerId.value })
             .expect(201);
     });
 });
