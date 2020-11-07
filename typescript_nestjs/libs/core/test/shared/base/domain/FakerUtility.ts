@@ -1,8 +1,8 @@
-import * as faker from 'faker';
+import * as Faker from 'faker';
 import FakerStatic = Faker.FakerStatic;
 
 export class FakerUtility {
     static get(): FakerStatic {
-        return faker;
+        return Faker;
     }
 }

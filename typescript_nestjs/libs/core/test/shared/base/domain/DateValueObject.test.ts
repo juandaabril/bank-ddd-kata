@@ -1,7 +1,6 @@
-import {DateValueObject} from "@app/core/shared/base/domain/DateValueObject";
+import { DateValueObject } from '@app/core/shared/base/domain/DateValueObject';
 
 describe('DateValueObject', () => {
-
     test('can create a DateValueObject from string', () => {
         const date = '24/02/2019';
 

@@ -1,39 +1,39 @@
 {
-  "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/http/src",
-  "monorepo": true,
-  "root": "apps/http",
-  "compilerOptions": {
-    "webpack": true,
-    "tsConfigPath": "apps/http/tsconfig.app.json"
-  },
-  "projects": {
-    "http": {
-      "type": "application",
-      "root": "apps/http",
-      "entryFile": "main",
-      "sourceRoot": "apps/http/src",
-      "compilerOptions": {
+    "collection": "@nestjs/schematics",
+    "sourceRoot": "apps/http/src",
+    "monorepo": true,
+    "root": "apps/http",
+    "compilerOptions": {
+        "webpack": true,
         "tsConfigPath": "apps/http/tsconfig.app.json"
-      }
     },
-    "amqp": {
-      "type": "application",
-      "root": "apps/amqp",
-      "entryFile": "main",
-      "sourceRoot": "apps/amqp/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/amqp/tsconfig.app.json"
-      }
-    },
-    "core": {
-      "type": "library",
-      "root": "libs/core",
-      "entryFile": "index",
-      "sourceRoot": "libs/core/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/core/tsconfig.lib.json"
-      }
+    "projects": {
+        "http": {
+            "type": "application",
+            "root": "apps/http",
+            "entryFile": "main",
+            "sourceRoot": "apps/http/src",
+            "compilerOptions": {
+                "tsConfigPath": "apps/http/tsconfig.app.json"
+            }
+        },
+        "amqp": {
+            "type": "application",
+            "root": "apps/amqp",
+            "entryFile": "main",
+            "sourceRoot": "apps/amqp/src",
+            "compilerOptions": {
+                "tsConfigPath": "apps/amqp/tsconfig.app.json"
+            }
+        },
+        "core": {
+            "type": "library",
+            "root": "libs/core",
+            "entryFile": "index",
+            "sourceRoot": "libs/core/src",
+            "compilerOptions": {
+                "tsConfigPath": "libs/core/tsconfig.lib.json"
+            }
+        }
     }
-  }
 }
