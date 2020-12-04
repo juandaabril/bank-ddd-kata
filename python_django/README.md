@@ -1,4 +1,4 @@
-#python_django [bank-ddd-kata]
+# python_django [bank-ddd-kata]
 This project was made as a learning process of DDD and TDD and python with django.
 
 ## Folder Structure
