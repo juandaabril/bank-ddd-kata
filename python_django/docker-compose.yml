@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  rabbit:
+    image: rabbitmq:management
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - 8082:15672
+      - 5672:5672
+
+  db:
+    image: postgres:11
+    user: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 8081:80
+    depends_on:
+      - db
+    links:
+      - db:db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin

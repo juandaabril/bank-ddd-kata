@@ -16,20 +16,17 @@ export class Request {
 
 @Controller('/customer')
 export class CustomerPostController {
-    constructor(
-        private createCustomer: CreateCustomer,
-    ) {
-    }
+    constructor(private createCustomer: CreateCustomer) {}
 
     @Post()
     run(@Body() request: Request): Promise<void> {
-        console.log(request);
         const customerId = new CustomerId(request.customerId);
-        const identification = new CustomerIdentification(request.identification);
+        const identification = new CustomerIdentification(
+            request.identification,
+        );
         const firstName = new CustomerFirstName(request.firstName);
         const lastName = new CustomerLastName(request.lastName);
         const mobilePhone = new CustomerMobilePhone(request.mobilePhone);
-
         return this.createCustomer.execute(
             customerId,
             identification,
@@ -39,4 +36,3 @@ export class CustomerPostController {
         );
     }
 }
-

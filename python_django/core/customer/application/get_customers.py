@@ -15,7 +15,7 @@ class CustomerResponse:
 def customer_to_response(customer: Customer) -> CustomerResponse:
     return CustomerResponse(
         customer.id.value,
-        customer.name.value
+        customer.first_name.value
     )
 
 

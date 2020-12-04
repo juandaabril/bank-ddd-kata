@@ -11,6 +11,10 @@ class UUIDValueObject(StringValueObject):
         except ValueError:
             raise InvalidUUID()
 
+    @staticmethod
+    def random() -> str:
+        return str(uuid.uuid4())
+
 
 class InvalidUUID(Exception):
     pass

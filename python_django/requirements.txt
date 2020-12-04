@@ -1,3 +1,6 @@
 Django == 3.1.2
 djangorestframework == 3.12.1
 PyHamcrest == 2.0.2
+pika == 1.1.0
+python-decouple == 3.3
+psycopg2-binary == 2.8.6

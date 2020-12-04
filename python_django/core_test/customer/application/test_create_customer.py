@@ -8,7 +8,7 @@ from core.customer.domain.customer_repository import CustomerRepository
 from core.customer.infrastructure.in_memory_customer_repository import InMemoryCustomerRepository
 from core.shared.bus.domain.event_bus import EventBus
 from core_test.customer.domain.customer_id_mother import CustomerIdMother
-from core_test.customer.domain.customer_name_mother import CustomerNameMother
+from core_test.customer.domain.customer_first_name_mother import CustomerFirstNameMother
 
 
 class TestCreateCustomer(unittest.TestCase):
@@ -18,14 +18,14 @@ class TestCreateCustomer(unittest.TestCase):
 
     def test_should_create_a_customer(self):
         customer_id = CustomerIdMother.random()
-        customer_name = CustomerNameMother.random()
+        customer_first_name = CustomerFirstNameMother.random()
 
         self.given_a_create_customer_use_case()
 
-        self.when_create_a_customer(customer_id, customer_name)
+        self.when_create_a_customer(customer_id, customer_first_name)
 
-        self.then_customer_has_this_data(customer_id, customer_name)
-        self.then_a_customer_was_created_event_was_register(customer_id, customer_name)
+        self.then_customer_has_this_data(customer_id, customer_first_name)
+        self.then_a_customer_was_created_event_was_register(customer_id, customer_first_name)
 
     def given_a_create_customer_use_case(self):
         self.customer_repository = InMemoryCustomerRepository()
@@ -35,19 +35,19 @@ class TestCreateCustomer(unittest.TestCase):
     def when_create_a_customer(self, customer_id, customer_name):
         self.create_customer(customer_id, customer_name)
 
-    def then_customer_has_this_data(self, customer_id, customer_name):
+    def then_customer_has_this_data(self, customer_id, customer_first_name):
         customer = self.customer_repository.find_by_id(customer_id)
         assert_that(customer, not_none())
         assert_that(customer.id, not_none())
         assert_that(customer.id, equal_to(customer_id))
-        assert_that(customer.name, equal_to(customer_name))
+        assert_that(customer.first_name, equal_to(customer_first_name))
 
-    def then_a_customer_was_created_event_was_register(self, customer_id, customer_name):
+    def then_a_customer_was_created_event_was_register(self, customer_id, customer_first_name):
         events = self.event_bus.publish.call_args[0][0]
         assert_that(len(events), equal_to(1))
         assert_that(events[0].body(), equal_to({
             'customerId': customer_id.value,
-            'name': customer_name.value
+            'customerFirstName': customer_first_name.value
         }))
 
 

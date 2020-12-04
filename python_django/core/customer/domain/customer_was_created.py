@@ -2,16 +2,16 @@ from core.shared.bus.domain.domain_event import DomainEvent
 
 
 class CustomerWasCreated(DomainEvent):
-    customer_id: str
-    customer_name: str
+    _customer_id: str
+    _customer_first_name: str
 
-    def __init__(self, customer_id: str, customer_name: str):
+    def __init__(self, customer_id: str, customer_first_name: str):
         super().__init__()
-        self.customer_id = customer_id
-        self.customer_name = customer_name
+        self._customer_id = customer_id
+        self._customer_first_name = customer_first_name
 
     def body(self) -> dict:
         return {
-            'customerId': self.customer_id,
-            'name': self.customer_name
+            'customerId': self._customer_id,
+            'customerFirstName': self._customer_first_name
         }

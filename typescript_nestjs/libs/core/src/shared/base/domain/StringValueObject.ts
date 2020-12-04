@@ -1,4 +1,4 @@
-import {ValueObject} from "./ValueObject";
+import { ValueObject } from './ValueObject';
 
 export class StringValueObject implements ValueObject {
     private _value: string;
@@ -8,8 +8,8 @@ export class StringValueObject implements ValueObject {
     }
 
     equals(object: any): boolean {
-        if (object instanceof  StringValueObject) {
-            return  this._value === object._value
+        if (object instanceof StringValueObject) {
+            return this._value === object._value;
         }
         return false;
     }

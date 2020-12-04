@@ -3,8 +3,11 @@ from typing import List
 from core.shared.bus.domain.domain_event import DomainEvent
 
 
-class AggregateRoot:
-    _domainEvents: List[DomainEvent] = []
+class AggregateRoot(object):
+    _domainEvents: List[DomainEvent]
+
+    def __init__(self):
+        self._domainEvents = []
 
     def pull_domain_events(self) -> List[DomainEvent]:
         events = self._domainEvents

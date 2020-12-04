@@ -1,23 +1,23 @@
 from core.customer.domain.customer_id import CustomerId
-from core.customer.domain.customer_name import CustomerName
+from core.customer.domain.customer_first_name import CustomerFirstName
 from core.customer.domain.customer_was_created import CustomerWasCreated
 from core.shared.base.domain.aggregate_root import AggregateRoot
 
 
 class Customer(AggregateRoot):
     _customer_id: CustomerId
-    _customer_name: CustomerName
+    _customer_first_name: CustomerFirstName
 
-    def __init__(self, customer_id: CustomerId, customer_name: CustomerName):
+    def __init__(self, customer_id: CustomerId, customer_first_name: CustomerFirstName):
+        super().__init__()
         self._customer_id = customer_id
-        self._customer_name = customer_name
+        self._customer_first_name = customer_first_name
 
     @staticmethod
-    def create(customer_id: CustomerId, customer_name: CustomerName):
-        customer = Customer(customer_id, customer_name)
-        print(customer_name.value)
+    def create(customer_id: CustomerId, customer_first_name: CustomerFirstName):
+        customer = Customer(customer_id, customer_first_name)
         customer.record(
-            CustomerWasCreated(customer_id.value, customer_name.value)
+            CustomerWasCreated(customer_id.value, customer_first_name.value)
         )
 
         return customer
@@ -27,5 +27,5 @@ class Customer(AggregateRoot):
         return self._customer_id
 
     @property
-    def name(self) -> CustomerName:
-        return self._customer_name
+    def first_name(self) -> CustomerFirstName:
+        return self._customer_first_name

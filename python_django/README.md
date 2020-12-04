@@ -1,15 +1,29 @@
-This project was made as a learning process of DDD (tactical design) and different technologies.
+#python_django [bank-ddd-kata]
+This project was made as a learning process of DDD and TDD and python with django.
 
-## Uses Cases
-This project was designed do cover the following use cases and requirements:
+## Folder Structure
 
-+ A Customer could register a new Checking Account using its personal details.
-+ Allow a customer to deposit funds into an existing account.
-+ Allow the customer to withdraw funds from an existing account.
-+ Allow the customer to close a Checking Account only if the balance is zero.
-+ Do not allow the Customer to Withdraw more than the existing funds.
-+ Allow to get the account details.
-+ Allow to get the customer details.
+## Installation
+1. Rename the file `.env.template` for `.env
+2. Complete the environment variables inside the `.env file
+3. Execute the pip requirements command `pip install -r requirements.txt`4
+4. Running the infrastructure (postgres and rabbitmq) `docker-compose up`
+5. Running the migrations `python manage.py migrate`
 
-`Copy from https://github.com/ivanpaulovich/ddd-tdd-rich-domain-model-dojo-kata`
-
+## Running the app
+* Running the infrastructure (postgres and rabbitmq)
+```bash
+$ docker-compose up
+```
+* Running the http-api
+```bash
+$ python manage.py runserver
+```
+* Running the amqp-listener
+```bash
+$ python manage.py listen_events
+```
+## Unit Test (CORE)
+```bash
+$ python manage.py test 
+```

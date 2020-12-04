@@ -9,3 +9,7 @@ class EventBus(metaclass=ABCMeta):
     @abstractmethod
     def publish(self, events: List[DomainEvent]) -> None:
         raise NotImplemented()
+
+    @abstractmethod
+    def listen(self, callback) -> None:
+        raise NotImplemented()
