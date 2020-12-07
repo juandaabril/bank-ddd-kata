@@ -5,5 +5,4 @@ def EventPattern(pattern: str):
     def decorator(func):
         event_handler.register_handler(pattern, func)
         return func
-
     return decorator

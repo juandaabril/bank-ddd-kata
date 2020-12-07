@@ -1,1 +1,1 @@
-from amqp.consumers.on_customer_was_created import on_customer_was_created
+from amqp.consumers.customer.on_customer_was_created import on_customer_was_created

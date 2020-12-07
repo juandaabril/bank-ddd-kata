@@ -15,10 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 
-from api.routes.customer_route import CustomerRoute
+from api.routes.account.make_deposit_route import make_deposit_route
+from api.routes.customer.create_customer_route import create_customer_route
+from api.routes.customer.get_customers_route import get_customer_route
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('customer', CustomerRoute.as_view()),
+    path('customer/create_customer', create_customer_route),
+    path('customer/get_customers', get_customer_route),
+    path('account/make_deposit', make_deposit_route),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

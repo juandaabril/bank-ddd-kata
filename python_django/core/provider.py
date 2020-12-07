@@ -1,6 +1,7 @@
 from decouple import config
 
 from core.account.application.create_account import CreateAccount
+from core.account.application.make_deposit import MakeDeposit
 from core.account.domain.account_repository import AccountRepository
 from core.account.infrastructure.django_account_repository import DjangoAccountRepository
 from core.customer.application.create_customer import CreateCustomer
@@ -12,10 +13,11 @@ from core.shared.bus.infrastructure.rabbitmq_event_bus import AMQPEventBus
 
 
 class Provider:
-    _create_customer: CreateCustomer
-    _get_customers: GetCustomers
-    _create_account: CreateAccount
-    _event_bus: EventBus
+    event_bus: EventBus
+    create_customer: CreateCustomer
+    get_customers: GetCustomers
+    create_account: CreateAccount
+    make_deposit: MakeDeposit
 
     def __init__(self):
         # Infrastructure
@@ -23,7 +25,7 @@ class Provider:
         account_repository: AccountRepository = DjangoAccountRepository()
 
         # InfrastructureServices
-        self._event_bus: EventBus = AMQPEventBus(
+        self.event_bus: EventBus = AMQPEventBus(
             config("RABBIT_USER"),
             config("RABBIT_PASSWORD"),
             config("RABBIT_HOST"),
@@ -31,25 +33,11 @@ class Provider:
         )
 
         # Application Services
-        self._create_customer = CreateCustomer(customer_repository, self._event_bus)
-        self._get_customers = GetCustomers(customer_repository)
-        self._create_account = CreateAccount(account_repository, customer_repository)
+        self.create_customer = CreateCustomer(customer_repository, self.event_bus)
+        self.get_customers = GetCustomers(customer_repository)
 
-    @property
-    def create_customer(self) -> CreateCustomer:
-        return self._create_customer
-
-    @property
-    def get_customer(self) -> GetCustomers:
-        return self._get_customers
-
-    @property
-    def create_account(self) -> CreateAccount:
-        return self._create_account
-
-    @property
-    def event_bus(self) -> EventBus:
-        return self._event_bus
+        self.create_account = CreateAccount(account_repository, customer_repository)
+        self.make_deposit = MakeDeposit(account_repository, customer_repository, self.event_bus)
 
 
 provider = Provider()

@@ -8,7 +8,8 @@ from core.customer.domain.customer_id import CustomerId
 
 class DjangoAccountRepository(AccountRepository):
     def find_by_id(self, account_id: AccountId) -> Account:
-        result = _models_to_domain(AccountModel.objects.filter(id=account_id.value))
+        result = AccountModel.objects.filter(id=account_id.value)
+        result = _models_to_domain(result)
         if len(result) == 0:
             return None
 
@@ -28,7 +29,7 @@ class AccountModel(models.Model):
     balance = models.BigIntegerField()
 
 
-def _models_to_domain(model_list: List) -> List[Account]:
+def _models_to_domain(model_list) -> List[Account]:
     def mapper(model):
         return Account(
             AccountId(str(model.id)),
@@ -36,7 +37,7 @@ def _models_to_domain(model_list: List) -> List[Account]:
             model.balance
         )
 
-    return map(mapper, model_list)
+    return list(map(mapper, list(model_list)))
 
 
 def _domain_to_model(account: Account) -> models.Model:

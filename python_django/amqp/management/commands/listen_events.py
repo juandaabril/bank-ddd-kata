@@ -1,6 +1,5 @@
 import json
 
-import pika
 from django.core.management.base import BaseCommand
 
 from amqp.events.event_handler import event_handler
@@ -8,7 +7,7 @@ from core.provider import provider
 
 
 class Command(BaseCommand):
-    help = 'Listen for Eevents on AMQP'
+    help = 'Listen for Events on AMQP'
 
     def handle(self, *args, **options):
         provider.event_bus.listen(self.callback)
