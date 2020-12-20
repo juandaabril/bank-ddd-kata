@@ -3,10 +3,10 @@ This project was made as a learning process of DDD and TDD and python with djang
 
 ## Folder Structure
 ```
-|-- amqp        - App for consuming AMQP events
-|-- api         - App Http Delivery Mechanism
-|-- core        - Core for the bussines logic
-|-- core_test   - Test for the bussines logic
+|-- amqp        --> Module for listen AMQP events (Django Command Pika)
+|-- api         --> Module for the delivery mechanism (Django HTTP)
+|-- core        --> Module for the use cases, domain and repositories
+|-- core_test   --> Unit tests
 ```
 
 ## Installation
