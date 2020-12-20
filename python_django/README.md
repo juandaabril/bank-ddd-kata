@@ -10,8 +10,8 @@ This project was made as a learning process of DDD and TDD and python with djang
 ```
 
 ## Installation
-1. Rename the file `.env.template` for `.env
-2. Complete the environment variables inside the `.env file
+1. Rename the file `.env.template` for `.env`
+2. Complete the environment variables inside the `.env` file
 3. Execute the pip requirements command `pip install -r requirements.txt`
 4. Running the infrastructure (postgres and rabbitmq) `docker-compose up`
 5. Running the migrations `python manage.py migrate`
