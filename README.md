@@ -14,5 +14,6 @@ This project was designed do cover the following use cases and requirements:
 `Copy from https://github.com/ivanpaulovich/ddd-tdd-rich-domain-model-dojo-kata`
 
 ## Projects
++ [golang_gin_gonic](golang_gin_gonic)
 + [typescript_nestjs](typescript_nestjs)
 + [python_django](python_django)
