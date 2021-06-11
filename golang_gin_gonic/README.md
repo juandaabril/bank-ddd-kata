@@ -1,5 +1,5 @@
 # go-lang [bank-ddd-kata]
-This project was made as a learning process of DDD and TDD and golang with gin-gonic.
+This project was made as a learning process of DDD, TDD and golang.
 
 ## Folder Structure
 ```
